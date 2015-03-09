@@ -9,8 +9,8 @@ public class PatternSolver {
 	public boolean[] solve(){
 		
 		
-		
-		SATSolver sat = new SATSolver();
+		String s ="";
+		SATSolver sat = new SATSolver(s);
 		boolean[] x = {true,false,false,true};
 		return x;
 	}
