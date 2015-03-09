@@ -6,9 +6,12 @@ class Node {
 	private String name;
 	private ArrayList<Node> edges = new ArrayList<Node>();
 	
-	public Node(String name, ArrayList<Node> edges){
+	public Node(String name){
 		this.name = name;
-		this.edges = edges;
+	}
+	
+	public void setEdge(Node k){
+		this.edges.add(k);
 	}
 	
 	public String getName(){
