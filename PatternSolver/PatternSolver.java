@@ -7,11 +7,11 @@ public class PatternSolver {
 	final ArrayList<Pattern> cases = new ArrayList<Pattern>(); 
 	
 	public boolean[] solve(){
-		boolean[] output = new boolean[cases.size()];
+		boolean[] output = new boolean[cases.size()];	//Array, das true oder false für jeden übergebenen Fall speichert
 		SATSolver sat = new SATSolver();
-		for(int i = 0; i < cases.size(); i++){
-			boolean[][] adjMtrx = reduceTo2Sat(cases.get(i));
-			output[i] = sat.solve(adjMtrx);
+		for(int i = 0; i < cases.size(); i++){					//für jeden Fall
+			boolean[][] adjMtrx = reduceTo2Sat(cases.get(i));	//wird die Reduktion durchgeführt
+			output[i] = sat.solve(adjMtrx);						//und das Ergebnis des SATSolvers gespeichert
 		}
 		return output;
 	}
@@ -19,12 +19,14 @@ public class PatternSolver {
 	private boolean[][] reduceTo2Sat(Pattern p){
 		boolean[][] adjMtrx = new boolean[2*(p.getN()*(p.getM()-1)+(p.getN()-1)*p.getM())][2*(p.getN()*(p.getM()-1)+(p.getN()-1)*p.getM())]; //2*(p.getN()*(p.getM()-1)+(p.getN()-1)*p.getM()) ergibt die Anzahl der Kanten im Pattern
 		
-		for(int i = 0; i < adjMtrx.length; i++){
-			for(int j = 0; j < adjMtrx.length; j++){
-				if(adjMtrx[i][j]){
+		
+		
+		for(int i = 0; i < adjMtrx.length; i++){		//nachdem die Reduktion durchgeführt ist, sind evtl einige Zellen der Matrix
+			for(int j = 0; j < adjMtrx.length; j++){	//noch nicht initialisiert worden.
+				if(adjMtrx[i][j]){						//Ist die Zelle mit dem Wert true initialisiert
 					//hier passiert nichts
 				}else{
-					adjMtrx[i][j] = false;
+					adjMtrx[i][j] = false;				//sonst wird sie mit false initialisiert.
 				}
 			}
 		}
