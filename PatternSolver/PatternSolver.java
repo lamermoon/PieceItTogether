@@ -19,6 +19,10 @@ public class PatternSolver {
 	private boolean[][] reduceTo2Sat(Pattern p){
 		int black = 0;
 		int white = 0;
+		char left;
+		char right;
+		char top;
+		char down;
 		char[][] pattern = p.getPattern();
 	/* Zaehle Anzahl der schwarzen und weissen Felder */
 		for(int i = 0; i < p.getN(); i++){
@@ -53,6 +57,45 @@ public class PatternSolver {
 			adjMtrx[0] = a;
 			adjMtrx[1] = b;
 		}
+		/*gehe durch Pattern und stelle Adjmtrx auf*/
+		for(int i=0;i<p.getM();i++) {
+			for(int j=0;j<p.getN();j++) {
+				if(pattern[i][j]=='.') {
+					//tue nichts
+				} else {
+					if(i!=0) {
+						left=pattern[i-1][j];
+					} else {
+						left= '.';
+					}
+					if (j!=0) {
+						top=pattern[i][j-1];
+					} else {
+						top='.';
+					}
+					if (i!=p.getM()-1) {
+						right=pattern[i+1][j];
+					} else{
+						right='.';
+					}
+					if (j!=p.getN()-1) {
+						down=pattern[i][j+1];
+					} else {
+						down='.';
+					}
+					if(pattern[i][j]=='B') {
+						//Erster Fall
+						if(left=='W'&&right=='W') {
+							//nicht a impliziert c
+							adjMtrx[(p.getM()-1)*2*(j)+(i-1)*2+1][(p.getM()-1)*2*(j)+(i)*2]=true;
+							//a impliziert nicht c
+							adjMtrx[(p.getM()-1)*2*(j)+(i-1)*2][(p.getM()-1)*2*(j)+(i)*2+1]=true;
+						}
+					}
+				}
+			}
+		}
+			
 		return adjMtrx;
 	}
 	
