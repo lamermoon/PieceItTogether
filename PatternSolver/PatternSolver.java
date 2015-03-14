@@ -74,13 +74,14 @@ public class PatternSolver {
 						if(pattern[i][j]=='B') {
 							//Erster Fall: 4 weisse Nachbarn
 							if(left == 'W' && right == 'W' && top == 'W' && down == 'W') {
+								//TODO: Fall abarbeiten
 								
 							//Zweiter Fall: 3 weisse Nachbarn
 							}else if((left == 'W' && top == 'W' && right == 'W') || 
 									(down == 'W' && top == 'W' && right == 'W') || 
 									(left == 'W' && down == 'W' && right == 'W') || 
 									(left == 'W' && top == 'W' && down == 'W')){
-								
+								//TODO: Fall abarbeiten
 								
 							//Dritter Fall: 2 weisse Nachbarn
 							}else if((right == 'W' && down == 'W') ||
@@ -89,7 +90,7 @@ public class PatternSolver {
 									(left == 'W' && down == 'W') ||
 									(left == 'W' && right == 'W') ||
 									(left == 'W' && top == 'W')){
-								
+								//TODO: Fall abarbeiten
 								
 							//Vierter Fall: 1 oder 0 weisse Nachbarn
 							}else{
@@ -99,7 +100,7 @@ public class PatternSolver {
 							
 					/* Wenn das aktuelle Feld ein weisses Feld ist: */
 						} else {
-							//Erster Fall:
+							//TODO: Faelle abarbeiten
 						}
 					}
 					
