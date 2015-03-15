@@ -71,31 +71,59 @@ public class PatternSolver {
 						} else { right = '.'; }
 						
 					/* Wenn das aktuelle Feld ein schwarzes Feld ist: */
-						if(pattern[i][j]=='B') {
-							//Erster Fall: 4 weisse Nachbarn
-							if(left == 'W' && right == 'W' && top == 'W' && down == 'W') {
-								//TODO: Fall abarbeiten
-								
-							//Zweiter Fall: 3 weisse Nachbarn
-							}else if((left == 'W' && top == 'W' && right == 'W') || 
-									(down == 'W' && top == 'W' && right == 'W') || 
-									(left == 'W' && down == 'W' && right == 'W') || 
-									(left == 'W' && top == 'W' && down == 'W')){
-								//TODO: Fall abarbeiten
-								
-							//Dritter Fall: 2 weisse Nachbarn
-							}else if((right == 'W' && down == 'W') ||
-									(top == 'W' && down == 'W') ||
-									(top == 'W' && right == 'W') ||
-									(left == 'W' && down == 'W') ||
-									(left == 'W' && right == 'W') ||
-									(left == 'W' && top == 'W')){
-								//TODO: Fall abarbeiten
-								
-							//Vierter Fall: 1 oder 0 weisse Nachbarn
-							}else{
-								System.out.println("Ich war hier!");
+						if(pattern[i][j] == 'B') {
+							//Erster Fall - Left und Right weiss
+							if(left == 'W' && right == 'W') {
+							//(a oder c) und (nicht a oder nicht c)
+								//nicht a impliziert c
+								adjMtrx[][] = true
+								//nicht c impliziert a
+								adjMtrx[][] = true;
+								//a impliziert nicht c
+								adjMtrx[][] = true;
+								//c impliziert nicht a
+								adjMtrx[][] = true;
+							} //Zweiter Fall - Left und Right nicht weiss 
+							else if(left != 'W' && right != 'W') {
+								//Pattern nicht erfuellbar
 								return falseSatInstance();
+							} //Dritter Fall - Left weiss, right nicht
+							else if(left == 'W' && right != 'W') {
+							//(a oder a)
+								//nicht a impliziert a
+								adjMtrx[][] = true;
+							} //Vierter Fall - Left nicht weiss, right weiss
+							else if(left != 'W' && right == 'W') {
+							//(c oder c)
+								//nicht c impliziert c
+								adjMtrx[][] = true;
+							} 
+							//Fuenfter Fall - Top und down weiss
+							//Neue Betrachtung! Kein else if!
+							if(top == 'W' && down == 'W') {
+							//(b oder d) und (nicht b oder nicht d)
+								//nicht b impliziert d
+								adjMtrx[][] = true;
+								//nicht d impliziert b
+								adjMtrx[][] = true;
+								//b impliziert nicht d
+								adjMtrx[][] = true;
+								//d impliziert nicht b
+								adjMtrx[][] = true;
+							} //Sechster Fall - Top und Down nicht weiss
+							else if(top != 'W' && down != 'W') {
+								//Pattern nicht erfuellbar
+								return falseSatInstance();
+							} //Siebter Fall - Top weiss und down nicht
+							else if(top == 'W' && down != 'W') {
+							//(b oder b)
+								//nicht b impliziert b
+								adjMtrx[][] = true;
+							} //Achter Fall - Top nicht weiss, down weiss
+							else if(top != 'W' && down == 'W') {
+							//(d oder d)
+								//nicht d impliziert d
+								adjMtrx[][] = true;
 							}
 							
 					/* Wenn das aktuelle Feld ein weisses Feld ist: */
