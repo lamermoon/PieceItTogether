@@ -11,20 +11,21 @@ import PieceItTogether.PatternSolver.Pattern;
 public class Main {
 
 	public static void main(String[] args) throws NumberFormatException, IOException{
+		PatternSolver ps = new PatternSolver();
+		String path = "";
 		/* Falls Uebergabeparameter übergeben wurde */
 		try{
-			PatternSolver ps = new PatternSolver();
-			String path = args[0];
-			if(path.contains("\\")){
-				path.replace('\\', '/');
-			}
-			init(ps, path);
-			boolean[] b = ps.solve();
-			for(int i = 0; i < b.length; i++){
-				System.out.println(b[i] ? "Yes" : "No");
-			}
-		/* Sonst */	
+			path = args[0];
+		/* Sonst */
 		} catch (ArrayIndexOutOfBoundsException e) {printError(0);}
+		if(path.contains("\\")){
+			path.replace('\\', '/');
+		}
+		init(ps, path);
+		boolean[] b = ps.solve();
+		for(int i = 0; i < b.length; i++){
+			System.out.println(b[i] ? "Yes" : "No");
+		}
 	}
 	
 	private static void init(PatternSolver ps, String path) throws NumberFormatException, IOException{
