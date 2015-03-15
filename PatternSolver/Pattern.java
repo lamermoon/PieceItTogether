@@ -1,6 +1,7 @@
 package PieceItTogether.PatternSolver;
 
 public class Pattern {
+	/* Das Pattern repraesentiert eine n x m Matrix aus chars (NICHT m x n !!!) */
 	private final int n;
 	private final int m;
 	private final char[][] pattern;
