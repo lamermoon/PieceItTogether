@@ -54,54 +54,67 @@ public class PatternSolver {
 				for(int j = 0; j < p.getM(); j++) {
 					
 					if(pattern[i][j] == 'W' || pattern[i][j] == 'B') {
-						if(i != 0) {					//Wenn pattern[i][j] nicht am linken Rand liegt,
-							top = pattern[i-1][j];		// gibt es ein Feld links daneben.
+						if(i != 0) {					//Wenn pattern[i][j] nicht am oberen Rand liegt,
+							top = pattern[i-1][j];		// gibt es ein Feld darueber.
 						} else { top = '.'; }
 						
-						if (j != 0) {					//Wenn pattern[i][j] nicht am oberen rand liegt,
-							left = pattern[i][j-1];		// gibt es ein Feld darueber.
+						if (j != 0) {					//Wenn pattern[i][j] nicht am linken rand liegt,
+							left = pattern[i][j-1];		// gibt es ein Feld links daneben.
 						} else { left = '.'; }
 						
-						if (i != p.getN()-1) {			//Wenn pattern[i][j] nicht am rechten Rand liegt,
-							down = pattern[i+1][j];	// gibt es ein Feld rechts daneben.
+						if (i != p.getN()-1) {			//Wenn pattern[i][j] nicht am unteren Rand liegt,
+							down = pattern[i+1][j];	// gibt es ein Feld darunter.
 						} else{ down = '.'; }
 						
-						if (j != p.getM()-1) {			//Wenn pattern[i][j] nicht am unteren Rand liegt,
-							right = pattern[i][j+1];		// gibt es ein Feld darunter.
+						if (j != p.getM()-1) {			//Wenn pattern[i][j] nicht am rechten Rand liegt,
+							right = pattern[i][j+1];		// gibt es ein Feld rechts daneben.
 						} else { right = '.'; }
 						
 					/* Wenn das aktuelle Feld ein schwarzes Feld ist: */
-						if(pattern[i][j]=='B') {
-							//Erster Fall: 4 weisse Nachbarn
-							if(left == 'W' && right == 'W' && top == 'W' && down == 'W') {
-								//TODO: Fall abarbeiten
-								
-							//Zweiter Fall: 3 weisse Nachbarn
-							}else if((left == 'W' && top == 'W' && right == 'W') || 
-									(down == 'W' && top == 'W' && right == 'W') || 
-									(left == 'W' && down == 'W' && right == 'W') || 
-									(left == 'W' && top == 'W' && down == 'W')){
-								//TODO: Fall abarbeiten
-								
-							//Dritter Fall: 2 weisse Nachbarn
-							}else if((right == 'W' && down == 'W') ||
-									(top == 'W' && down == 'W') ||
-									(top == 'W' && right == 'W') ||
-									(left == 'W' && down == 'W') ||
-									(left == 'W' && right == 'W') ||
-									(left == 'W' && top == 'W')){
-								//TODO: Fall abarbeiten
-								
-							//Vierter Fall: 1 oder 0 weisse Nachbarn
-							}else{
-								System.out.println("Ich war hier!");
-								return falseSatInstance();
-							}
-							
-					/* Wenn das aktuelle Feld ein weisses Feld ist: */
-						} else {
-							//TODO: Faelle abarbeiten
+					if(pattern[i][j]=='B') {
+						//Erster Fall - Left und Right weiss
+						if(left=='W'&&right=='W') {
+							//nicht a impliziert c
+							adjMtrx[(p.getM()-1)*2*i+(j-1)*2+1][(p.getM()-1)*2*i+j*2]=true;
+							//a impliziert nicht c
+							adjMtrx[(p.getM()-1)*2*i+(j-1)*2][(p.getM()-1)*2*i+j*2+1]=true;
+						} //Zweiter Fall - Left und Right nicht weiss 
+						else if(left!='W'&&right!='W') {
+							//Pattern nicht erfuellbar
+							return falseSatInstance();
+						} //Dritter Fall - Left weiss, right nicht
+						else if(left=='W'&&right!='W') {
+							//nicht a impliziert a ist aequivalent zu (a oder a) ist äquivalent zu a
+							adjMtrx[(p.getM()-1)*2*i+(j-1)*2+1][(p.getM()-1)*2*i+(j-1)*2]=true;
+						} //Vierter Fall - Left nicht weiss, right weiss
+						else if(left!='W'&&right=='W') {
+							//nicht c impliziert c ist aequivalent zu (c oder c) ist aequivalent zu c
+							adjMtrx[(p.getM()-1)*2*i+j*2+1][(p.getM()-1)*2*i+j*2]=true;
+						} //Fuenfter Fall - Top und down weiss
+						//Neue Betrachtung! Kein else if!
+						if(top=='W'&&down=='W') {
+							//nicht b impliziert d
+							adjMtrx[(p.getM()-1)*2*p.getN()+p.getM()*2*(i-1)+2*j+1][(p.getM()-1)*2*p.getN()+p.getM()*2*i+2*j]=true;
+							//nicht d impliziert b
+							adjMtrx[(p.getM()-1)*2*p.getN()+p.getM()*2*i+2*j+1][(p.getM()-1)*2*p.getN()+p.getM()*2*(i-1)+2*j]=true;
+						} //Sechster Fall - Top und Down nicht weiss
+						else if(top!='W'&&down!='W') {
+							//Pattern nicht erfuellbar
+							return falseSatInstance();
+						} //Siebter Fall - Top weiss und down nicht
+						else if(top=='W'&&down!='W') {
+							//nicht b impliziert b ist aequivalent zu (b oder b) ist aequivalent zu b
+							adjMtrx[(p.getM()-1)*2*p.getN()+p.getM()*2*(i-1)+2*j+1][(p.getM()-1)*2*p.getN()+p.getM()*2*(i-1)+2*j]=true;
+						} //Achter Fall - Top nicht weiss, down weiss
+						else if(top!='W'&&down=='W') {
+							//nicht d impliziert d ist aequivalent zu (d oder d) ist aequivalent zu d
+							adjMtrx[(p.getM()-1)*2*p.getN()+p.getM()*2*i+2*j+1][(p.getM()-1)*2*p.getN()+p.getM()*2*i+2*j]=true;
 						}
+					}
+					//Betrachte weißen Mittelstein!
+					if(pattern[i][j]=='W') {
+						//TODO
+					}
 					}
 					
 				}
@@ -114,45 +127,6 @@ public class PatternSolver {
 		} else {
 			return falseSatInstance();
 		}
-		/*gehe durch Pattern und stelle Adjmtrx auf*/
-		for(int i=0;i<p.getM();i++) {
-			for(int j=0;j<p.getN();j++) {
-				if(pattern[i][j]=='.') {
-					//tue nichts
-				} else {
-					if(i!=0) {
-						left=pattern[i-1][j];
-					} else {
-						left= '.';
-					}
-					if (j!=0) {
-						top=pattern[i][j-1];
-					} else {
-						top='.';
-					}
-					if (i!=p.getM()-1) {
-						right=pattern[i+1][j];
-					} else{
-						right='.';
-					}
-					if (j!=p.getN()-1) {
-						down=pattern[i][j+1];
-					} else {
-						down='.';
-					}
-					if(pattern[i][j]=='B') {
-						//Erster Fall
-						if(left=='W'&&right=='W') {
-							//nicht a impliziert c
-							adjMtrx[(p.getM()-1)*2*(j)+(i-1)*2+1][(p.getM()-1)*2*(j)+(i)*2]=true;
-							//a impliziert nicht c
-							adjMtrx[(p.getM()-1)*2*(j)+(i-1)*2][(p.getM()-1)*2*(j)+(i)*2+1]=true;
-						}
-					}
-				}
-			}
-		}
-			
 		return adjMtrx;
 	}
 	
