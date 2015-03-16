@@ -1,14 +1,14 @@
-5
+6
 3 3
 .BW
-BW.
 WW.
+BW.
 3 5
 .WWB.
 WWWBW
 .WBWB
 4 7
-.WBWWB.
+.WWBWB.
 WB.W.WW
 BW.W.WB
 W.WB...
@@ -21,4 +21,10 @@ BWW
 .BW
 WW.
 BWW
-.BW
+.WB
+5 5
+..W..
+.WBW.
+WBWBW
+.WBW.
+..W..
