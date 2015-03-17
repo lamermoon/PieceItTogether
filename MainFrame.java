@@ -148,13 +148,13 @@ public class MainFrame extends JFrame implements ActionListener{
 						    		boolean addTestCase = true;
 						    		for(int j = 0; j < n; j++){
 						    			char[] c = input[pos++].toCharArray();
-						    			if(c.length == m){
-						    				pattern[j] = c;
-						    			} else {
-						    				this.errorArea.setText("ALERT: Test case "+(i+1)+" does not have enough letters in line "+(j+1)+"\n" +
-						    						"Test case "+(i+1)+" will be ignored.");
-						    				addTestCase = false;
-						    			}
+							    		if(c.length == m){
+							    			pattern[j] = c;
+							    		} else {
+							    			this.errorArea.setText("ALERT: Test case "+(i+1)+" does not have enough letters in line "+(j+1)+"\n" +
+							    					"Test case "+(i+1)+" will be ignored.");
+							    			addTestCase = false;
+							    		}
 						    		}
 						    		if(addTestCase){
 							    		ps.addPattern(new Pattern(n, m, pattern));
@@ -195,7 +195,8 @@ public class MainFrame extends JFrame implements ActionListener{
 					break;
 			case 5: s = "ERROR: First line of each pattern must contain hight and width of the pattern separated by a blank sysmbol";
 					break;
-			case 6: s = "ERROR: Not enough test cases given. Please add test cases or correct the number given in line 1.";
+			case 6: s = "ALERT: Not enough test cases given.\n" +
+					"Please add test cases or correct the number given in line 1.";
 					break;
 			
 			default: s = "An error has occured. Please restart the programm.";
