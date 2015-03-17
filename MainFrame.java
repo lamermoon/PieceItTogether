@@ -107,13 +107,13 @@ public class MainFrame extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent arg0) {
 		PatternSolver ps = new PatternSolver();
-		
+		this.errorArea.setText("");
 		try{
 			init(ps);
-			boolean[] b = ps.solve();
+			String[] answers = ps.solve();
 			this.outputArea.setText("");
-			for(int i = 0; i < b.length; i++){
-				this.outputArea.append(b[i] ? "Yes\n" : "No\n");
+			for(int i = 0; i < answers.length; i++){
+				this.outputArea.append(answers[i]);
 			}
 		}
 		catch (IOException e){printError(0);}
@@ -136,29 +136,42 @@ public class MainFrame extends JFrame implements ActionListener{
 			if(k <= 100){
 			  	if(k > 0){
 			   		for(int i = 0; i < k; i++){
-			    		String s = input[pos++];
-			    		int a = s.indexOf(" ");
-			    		try{
-			    			n = Integer.parseInt(s.substring(0, a));
-			    			m = Integer.parseInt(s.substring(a+1));
-			    		
-				    		if(1 <= n && 500 >= n  &&  1 <= m && 500 >= m){
-					    		pattern = new char[n][];
-					    		
-					    		for(int j = 0; j < n; j++){
-					    			char[] c = input[pos++].toCharArray();
-					    			pattern[j] = c;
+			   			try{
+				    		String s = input[pos++];
+				    		int a = s.indexOf(" ");
+				    		try{
+				    			n = Integer.parseInt(s.substring(0, a));
+				    			m = Integer.parseInt(s.substring(a+1));
+				    		
+					    		if(1 <= n && 500 >= n  &&  1 <= m && 500 >= m){
+						    		pattern = new char[n][];
+						    		boolean addTestCase = true;
+						    		for(int j = 0; j < n; j++){
+						    			char[] c = input[pos++].toCharArray();
+						    			if(c.length == m){
+						    				pattern[j] = c;
+						    			} else {
+						    				this.errorArea.setText("ALERT: Test case "+(i+1)+" does not have enough letters in line "+(j+1)+"\n" +
+						    						"Test case "+(i+1)+" will be ignored.");
+						    				addTestCase = false;
+						    			}
+						    		}
+						    		if(addTestCase){
+							    		ps.addPattern(new Pattern(n, m, pattern));
+						    		} else {
+						    			ps.addPattern(new Pattern());
+						    		}
+						    		
+					    		} else {
+					    			this.errorArea.setText("ALERT: The dimension of test case "+(i+1)+"is wrong.\n"
+					    					+ "The given patterns must be at least 1x1 and not greater than 500 in eather width or hight.\n"
+					    					+ "Test case "+i+" will be ignored.");
 					    		}
-					    		Pattern p = new Pattern(n, m, pattern);
-					    		ps.addPattern(p);
-					    		
-				    		} else {
-				    			this.errorArea.setText("ALERT: The dimension of test case "+(i+1)+"is wrong.\n"
-				    					+ "The given patterns must be at least 1x1 and not greater than 500 in eather width or hight.\n"
-				    					+ "Test case "+i+" will be ignored.");
-				    		}
-			    		} 
-			    		catch(NumberFormatException e){printError(5);}
+				    		} 
+				    		catch(NumberFormatException e){printError(5);}
+				    		catch(ArrayIndexOutOfBoundsException e){printError(5);}
+			   			}
+			   			catch(ArrayIndexOutOfBoundsException e){printError(6);}
 			    	}
 			   	} else {printError(3);}
 			} else {printError(2);}
@@ -181,6 +194,9 @@ public class MainFrame extends JFrame implements ActionListener{
 			case 4: s = "ERROR: Format of input incorrect. Please check your input.";
 					break;
 			case 5: s = "ERROR: First line of each pattern must contain hight and width of the pattern separated by a blank sysmbol";
+					break;
+			case 6: s = "ERROR: Not enough test cases given. Please add test cases or correct the number given in line 1.";
+					break;
 			
 			default: s = "An error has occured. Please restart the programm.";
 					break;

@@ -6,12 +6,22 @@ import PieceItTogether.SATSolver.SATSolver;
 public class PatternSolver {
 	final ArrayList<Pattern> cases = new ArrayList<Pattern>(); 
 	
-	public boolean[] solve(){
-		boolean[] output = new boolean[cases.size()];
+	public String[] solve(){
+		String[] output = new String[cases.size()];
 		SATSolver sat = new SATSolver();
 		for(int i = 0; i < cases.size(); i++){
-			boolean[][] adjMtrx = reduceTo2Sat(cases.get(i));
-			output[i] = sat.solve(adjMtrx);
+			if(cases.get(i).getN() == -1){
+				output[i] = "**ignored**\n";
+			} else {
+				boolean[][] adjMtrx = reduceTo2Sat(cases.get(i));
+				boolean answer = sat.solve(adjMtrx);
+				if(answer){
+					output[i] = "Yes\n";
+				} else {
+					output[i] = "No\n";
+				}
+			}
+			
 		}
 		return output;
 	}

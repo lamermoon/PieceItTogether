@@ -6,6 +6,12 @@ public class Pattern {
 	private final int m;
 	private final char[][] pattern;
 	
+	public Pattern(){
+		this.n = -1;
+		this.m = -1;
+		this.pattern = new char[0][0];
+	}
+	
 	public Pattern(int n, int m, char[][] pattern){
 		this.n = n;
 		this.m = m;
