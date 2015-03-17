@@ -22,7 +22,7 @@ import PieceItTogether.PatternSolver.Pattern;
 public class MainFrame extends JFrame implements ActionListener{
 	private JButton button;
 	private JSplitPane ioPanel, center;
-	private JPanel top, bottom, subCenter;
+	private JPanel top, bottom, subCenter, inputPanel, outputPanel;
 	private JTextArea inputArea, outputArea, errorArea;
 	private JScrollPane isp, osp, esp;
 	private JProgressBar progBar;
@@ -43,6 +43,11 @@ public class MainFrame extends JFrame implements ActionListener{
 		
 		this.isp = new JScrollPane(inputArea);
 		
+		this.inputPanel = new JPanel();
+		this.inputPanel.setLayout(new BorderLayout());
+		this.inputPanel.add(new JLabel("INPUT:"), BorderLayout.NORTH);
+		this.inputPanel.add(isp, BorderLayout.CENTER);
+		
 		this.outputArea = new JTextArea();
 		this.outputArea.setFont(new Font(Font.MONOSPACED, 5, 16));
 		this.outputArea.setSize(250, 700);
@@ -51,6 +56,11 @@ public class MainFrame extends JFrame implements ActionListener{
 		this.outputArea.setVisible(true);
 		
 		this.osp = new JScrollPane(outputArea);
+		
+		this.outputPanel = new JPanel();
+		this.outputPanel.setLayout(new BorderLayout());
+		this.outputPanel.add(new JLabel("OUTPUT:"), BorderLayout.NORTH);
+		this.outputPanel.add(osp, BorderLayout.CENTER);
 		
 		this.errorArea = new JTextArea();
 		this.errorArea.setFont(new Font(Font.MONOSPACED, 5, 16));
@@ -67,10 +77,10 @@ public class MainFrame extends JFrame implements ActionListener{
 		
 		this.top = new JPanel();
 		this.top.setLayout(new BorderLayout());
-		this.top.add(new JLabel(" INPUT:"), BorderLayout.WEST);
-		this.top.add(new JLabel("OUTPUT: "), BorderLayout.EAST);
+		this.top.add(new JLabel(" Piece It Together"), BorderLayout.NORTH);
 		
-		this.ioPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, isp, osp);
+		
+		this.ioPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, inputPanel, outputPanel);
 		this.ioPanel.setDividerLocation(inputArea.getWidth());
 		
 		this.subCenter = new JPanel();
