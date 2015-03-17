@@ -54,19 +54,19 @@ public class PatternSolver {
 				for(int j = 0; j < p.getM(); j++) {
 					if(pattern[i][j] == 'W' || pattern[i][j] == 'B') {
 						if(i != 0) {					//Wenn pattern[i][j] nicht am linken Rand liegt,
-							top = pattern[i-1][j];		// gibt es ein Feld links daneben.
+							top = pattern[i-1][j];		// gibt es ein Feld darueber.
 						} else { top = '.'; }
 						
 						if (j != 0) {					//Wenn pattern[i][j] nicht am oberen rand liegt,
-							left = pattern[i][j-1];		// gibt es ein Feld darueber.
+							left = pattern[i][j-1];		// gibt es ein Feld links daneben.
 						} else { left = '.'; }
 						
 						if (i != p.getN()-1) {			//Wenn pattern[i][j] nicht am rechten Rand liegt,
-							down = pattern[i+1][j];	// gibt es ein Feld rechts daneben.
+							down = pattern[i+1][j];	// gibt es ein Feld darunter.
 						} else{ down = '.'; }
 						
 						if (j != p.getM()-1) {			//Wenn pattern[i][j] nicht am unteren Rand liegt,
-							right = pattern[i][j+1];		// gibt es ein Feld darunter.
+							right = pattern[i][j+1];		// gibt es ein Feld rechts daneben.
 						} else { right = '.'; }
 					
 					int a = 2*((p.getM()-1)*i + j - 1);
@@ -426,7 +426,7 @@ public class PatternSolver {
 									adjMtrx[a][na] = true;
 								}
 							}
-							//Fünfter Fall: 0 schwarze Nachbarn
+							//FÃ¼nfter Fall: 0 schwarze Nachbarn
 							else{
 								return falseSatInstance();
 							}
