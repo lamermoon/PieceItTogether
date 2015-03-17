@@ -426,7 +426,7 @@ public class PatternSolver {
 									adjMtrx[a][na] = true;
 								}
 							}
-							//Fünfter Fall: 0 schwarze Nachbarn
+							//FÃ¼nfter Fall: 0 schwarze Nachbarn
 							else{
 								return falseSatInstance();
 							}
