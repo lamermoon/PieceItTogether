@@ -6,7 +6,7 @@ public class Node {
 	private String name;
 	private ArrayList<Node> edges = new ArrayList<Node>();
 
-	public Node(String name, Node invers){
+	public Node(String name){
 		this.name = name;
 	}
 
