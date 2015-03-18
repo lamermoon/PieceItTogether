@@ -52,10 +52,10 @@ public class PatternSolver {
 /* Wenn doppelt so viele weisse wie schwarze Felder da sind, ist eine Loesung moeglich */
 		if(2*black == white){
 			adjList = new Node[2*(p.getN()*(p.getM()-1)+(p.getN()-1)*p.getM())]; //2*(p.getN()*(p.getM()-1)+(p.getN()-1)*p.getM()) ergibt die Anzahl der Kanten im Pattern
-			/* alle Felder werden mit false initialisiert */
-//			for(int i = 0; i < adjList.length; i++){
-				//TODO: Init noetig?
-//			}
+			/* adjList initialisieren */
+			for(int i = 0; i < adjList.length; i++){
+				adjList[i] = new Node(i);
+			}
 	/* *************************************************************************************************************************************************
 	 * ************************************************** REDUKTION BEGINN *****************************************************************************
 	 * ************************************************************************************************************************************************* */

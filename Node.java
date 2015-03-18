@@ -3,19 +3,19 @@ package PieceItTogether;
 import java.util.ArrayList;
 
 public class Node {
-	private String name;
+	private final int id;
 	private ArrayList<Node> edges = new ArrayList<Node>();
 
-	public Node(String name){
-		this.name = name;
+	public Node(int id){
+		this.id = id;
 	}
 
 	public void setEdge(Node k){
 		this.edges.add(k);
 	}
 
-	public String getName(){
-		return this.name;
+	public int getID(){
+		return this.id;
 	}
 	
 	public ArrayList<Node> getEdges(){
@@ -27,9 +27,9 @@ public class Node {
 	}
 
 	public String toString(){
-		String s = "Knoten "+name+" hat Kanten zu den Knoten:\n";
+		String s = "Knoten "+id+" hat Kanten zu den Knoten:\n";
 		for(int i = 0; i < edges.size(); i++){
-			s += edges.get(i).getName() + "\n";
+			s += edges.get(i).getID() + "\n";
 		}
 		return s;
 	}
