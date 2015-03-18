@@ -28,7 +28,33 @@ public class SATSolver {
 	}
 		
 	public Node[] transitiveClosure(Node[] graph) {
-
+		int i=0;
+		int iTemp=0;
+		do	{
+			i=0;
+			for(int j=0;j<graph.length;j++) {		//gehe durch graphen
+				int k=0;
+				while(graph[j].getEdge(k)!=null) {	//für alle nachfolgeknoten
+					int l=0;
+					while(graph[j].getEdge(k).getEdge(l)!=null) {	//fuege dessen nachfolgeknoten ein
+						int m=0;
+						while(graph[j].getEdge(m)!=null) {	//TODO: bessere loesung fuer die Ueberpruefung,
+							//ob sich etwas geaendert hat
+							if(graph[j].getEdge(m).equals(graph[j].getEdge(k).getEdge(l))) {	//falls edge bereits vorhanden itemp=0
+								iTemp=0;
+								break;
+							} else {			//sonst iTemp=1 (es hat sich etwas verändert)
+								iTemp=1;
+							}
+						}
+						graph[j].setEdge(graph[l]);	//setze neue Kante
+					}
+					if(iTemp!=0) {			//Ist das noetig? Wollte vermeiden, dass i oben ueberschrieben wird
+						i=1;
+					}
+				}
+			}
+		} while(i!=0);				//Iterationen solange sich etwas veraendert
 		return graph;
 	}
 }
