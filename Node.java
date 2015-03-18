@@ -1,15 +1,13 @@
-package PieceItTogether.SATSolver;
+package PieceItTogether;
 
 import java.util.ArrayList;
 
-class Node {
+public class Node {
 	private String name;
-	private Node invers;
 	private ArrayList<Node> edges = new ArrayList<Node>();
 
 	public Node(String name, Node invers){
 		this.name = name;
-		this.invers = invers;
 	}
 
 	public void setEdge(Node k){
@@ -18,10 +16,6 @@ class Node {
 
 	public String getName(){
 		return this.name;
-	}
-	
-	public Node getInvers() {
-		return this.invers;
 	}
 	
 	public ArrayList<Node> getEdges(){
