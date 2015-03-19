@@ -1,6 +1,5 @@
 package PieceItTogether.SATSolver;
 
-
 public class SATSolver {
 	
 	//Im bool-array sind a und nicht a immer nebeneinander angeordnet
@@ -8,11 +7,11 @@ public class SATSolver {
 		adjList= transitiveClosure(adjList);
 		for(int i=0;i<adjList.length;i=i+2) {			//gehe durch alle "nichtnegierten Listen"
 			int j=0;
-			while(adjList[i].getEdgesTo().get(j)!=null) {	//i-te Liste
-				if(adjList[i].getEdgesTo().get(j).equals(adjList[i+1])) {	//schaue, ob Implikation zu negierter Liste
+			while(adjList[i].getOutgoingEdges().get(j)!=null) {	//i-te Liste
+				if(adjList[i].getOutgoingEdges().get(j).equals(adjList[i+1])) {	//schaue, ob Implikation zu negierter Liste
 					int k=0;
-					while(adjList[i+1].getEdgesTo().get(k)!=null) {			//falls ja , gehe durch negierte Liste
-						if(adjList[i+1].getEdgesTo().get(k).equals(adjList[i])) {
+					while(adjList[i+1].getOutgoingEdges().get(k)!=null) {			//falls ja , gehe durch negierte Liste
+						if(adjList[i+1].getOutgoingEdges().get(k).equals(adjList[i])) {
 							return false;				//falls dort Implikation zu nichtnegierter dann Cycle also false
 						}
 						k++;
@@ -26,6 +25,18 @@ public class SATSolver {
 		return true;							//sonst true
 	}
 	
+	public boolean solve(Graph g){
+		Graph tcg = g.getTransitiveClosure();
+		for(int i = 0; i < tcg.getEdges().size(); i=i+2){
+			Vertex a = tcg.getVertex(i);
+			Vertex na = tcg.getVertex(i+1);
+			if(a.getOutgoingEdges().contains(na) && na.getOutgoingEdges().contains(a)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public Vertex[] transitiveClosure(Vertex[] graph) {
 		int i=0;
 		int iTemp=0;
@@ -33,13 +44,13 @@ public class SATSolver {
 			i=0;
 			for(int j=0;j<graph.length;j++) {		//gehe durch graphen
 				int k=0;
-				while(graph[j].getEdgesTo().get(k)!=null) {	//für alle nachfolgeknoten
+				while(graph[j].getOutgoingEdges().get(k)!=null) {	//für alle nachfolgeknoten
 					int l=0;
-					while(graph[j].getEdgesTo().get(k).getEdgesTo().get(l)!=null) {	//fuege dessen nachfolgeknoten ein
+					while(graph[j].getOutgoingEdges().get(k).getOutgoingEdges().get(l)!=null) {	//fuege dessen nachfolgeknoten ein
 						int m=0;
-						while(graph[j].getEdgesTo().get(m)!=null) {	//TODO: bessere loesung fuer die Ueberpruefung,
+						while(graph[j].getOutgoingEdges().get(m)!=null) {	//TODO: bessere loesung fuer die Ueberpruefung,
 							//ob sich etwas geaendert hat
-							if(graph[j].getEdgesTo().get(m).equals(graph[j].getEdgesTo().get(k).getEdgesTo().get(l))) {	//falls edge bereits vorhanden itemp=0
+							if(graph[j].getOutgoingEdges().get(m).equals(graph[j].getOutgoingEdges().get(k).getOutgoingEdges().get(l))) {	//falls edge bereits vorhanden itemp=0
 								iTemp=0;
 								break;
 							} else {			//sonst iTemp=1 (es hat sich etwas verändert)

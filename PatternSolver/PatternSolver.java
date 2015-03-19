@@ -2,6 +2,8 @@ package PieceItTogether.PatternSolver;
 
 import java.util.ArrayList;
 
+import PieceItTogether.SATSolver.Edge;
+import PieceItTogether.SATSolver.Graph;
 import PieceItTogether.SATSolver.SATSolver;
 import PieceItTogether.SATSolver.Vertex;
 
@@ -16,7 +18,13 @@ public class PatternSolver {
 				output[i] = "**ignored**\n";
 			} else {
 				Vertex[] adjList = reduceTo2Sat(cases.get(i));
-				boolean answer = sat.solve(adjList);
+				Graph g = new Graph();
+				for(int j = 0; j < adjList.length; j++){
+					for(int k = 0; k < adjList[j].getOutgoingEdges().size(); k++){
+						g.addEdge(new Edge(adjList[j], adjList[j].getOutgoingEdge(k)));
+					}
+				}
+				boolean answer = sat.solve(g);
 				if(answer){
 					output[i] = "Yes\n";
 				} else {

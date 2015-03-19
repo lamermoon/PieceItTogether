@@ -20,9 +20,34 @@ public class Graph {
 	/* Methoden */
 	public Graph getTransitiveClosure(){
 		//TODO: implementieren
+		for(int v = 0; v < this.v.size(); v++){
+			for(int i = 0; i < this.v.size(); i++){
+				for(int j = 0; j < this.v.size(); j++){
+					Vertex vtx = this.v.get(v);
+					this.e.add(new Edge(vtx.getIncomingEdges().get(i), vtx.getOutgoingEdges().get(j)));//Transitive Huelle
+					this.e.add(new Edge(vtx, vtx));//Reflexsive Huelle
+				}
+			}
+		}
 		Graph g = new Graph();
 		
 		return g;
+	}
+	
+	public boolean containsEdge(Edge e){
+		return this.e.contains(e);
+	}
+	
+	public boolean containsEdge(Vertex tail, Vertex head){
+		if(this.v.contains(tail) && this.v.contains(head)){
+			for(int i = 0; i < this.e.size(); i++){
+				if(this.e.get(i).getTail().equals(tail) &&
+						this.e.get(i).getHead().equals(head)){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	/* Overrides */

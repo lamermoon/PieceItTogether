@@ -1,13 +1,11 @@
 package PieceItTogether.SATSolver;
 
 public class Edge {
-	private final int id;
 	private Vertex tail;
 	private Vertex head;
 	
 	/* Konstruktor */
-	public Edge(int id, Vertex tail, Vertex head){
-		this.id = id;
+	public Edge(Vertex tail, Vertex head){
 		this.tail = tail;
 		this.head = head;
 		this.tail.addOutgoingEdge(this.head);
@@ -18,8 +16,7 @@ public class Edge {
 	@Override
 	public boolean equals(Object o){
 		if(o instanceof Edge){
-			if(this.id == ((Edge) o).getID() &&
-					this.tail.equals(((Edge) o).getTail()) &&
+			if(this.tail.equals(((Edge) o).getTail()) &&
 					this.head.equals(((Edge) o).getHead())){
 				return true;
 			}
@@ -33,11 +30,7 @@ public class Edge {
 		return s;
 	}
 	
-	/* Getter */
-	public int getID(){
-		return this.id;
-	}
-	
+	/* Getter */	
 	public Vertex getHead(){
 		return this.head;
 	}

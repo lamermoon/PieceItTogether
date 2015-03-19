@@ -34,12 +34,20 @@ public class Vertex {
 		return this.id;
 	}
 	
-	public ArrayList<Vertex> getEdgesFrom(){
+	public ArrayList<Vertex> getIncomingEdges(){
 		return this.incomingEdges;
 	}
 	
-	public ArrayList<Vertex> getEdgesTo(){
+	public ArrayList<Vertex> getOutgoingEdges(){
 		return this.outgoingEdges;
+	}
+	
+	public Vertex getIncomingEdge(int i){
+		return this.incomingEdges.get(i);
+	}
+	
+	public Vertex getOutgoingEdge(int i){
+		return this.outgoingEdges.get(i);
 	}
 	
 	/* Overrides */
