@@ -2,8 +2,8 @@ package PieceItTogether.PatternSolver;
 
 import java.util.ArrayList;
 
-import PieceItTogether.Node;
 import PieceItTogether.SATSolver.SATSolver;
+import PieceItTogether.SATSolver.Vertex;
 
 public class PatternSolver {
 	final ArrayList<Pattern> cases = new ArrayList<Pattern>(); 
@@ -15,7 +15,7 @@ public class PatternSolver {
 			if(cases.get(i).getN() == -1){
 				output[i] = "**ignored**\n";
 			} else {
-				Node[] adjList = reduceTo2Sat(cases.get(i));
+				Vertex[] adjList = reduceTo2Sat(cases.get(i));
 				boolean answer = sat.solve(adjList);
 				if(answer){
 					output[i] = "Yes\n";
@@ -28,7 +28,7 @@ public class PatternSolver {
 		return output;
 	}
 	
-	private Node[] reduceTo2Sat(Pattern p){
+	private Vertex[] reduceTo2Sat(Pattern p){
 		int black = 0;
 		int white = 0;
 		char left;
@@ -48,13 +48,13 @@ public class PatternSolver {
 			}
 		}
 		
-		Node[] adjList;
+		Vertex[] adjList;
 /* Wenn doppelt so viele weisse wie schwarze Felder da sind, ist eine Loesung moeglich */
 		if(2*black == white){
-			adjList = new Node[2*(p.getN()*(p.getM()-1)+(p.getN()-1)*p.getM())]; //2*(p.getN()*(p.getM()-1)+(p.getN()-1)*p.getM()) ergibt die Anzahl der Kanten im Pattern
+			adjList = new Vertex[2*(p.getN()*(p.getM()-1)+(p.getN()-1)*p.getM())]; //2*(p.getN()*(p.getM()-1)+(p.getN()-1)*p.getM()) ergibt die Anzahl der Kanten im Pattern
 			/* adjList initialisieren */
 			for(int i = 0; i < adjList.length; i++){
-				adjList[i] = new Node(i);
+				adjList[i] = new Vertex(i);
 			}
 	/* *************************************************************************************************************************************************
 	 * ************************************************** REDUKTION BEGINN *****************************************************************************
@@ -457,9 +457,9 @@ public class PatternSolver {
 		return adjList;
 	}
 	
-	private Node[] falseSatInstance(){
-		Node[] adjList;								//Es wird einfach eine AdjList
-		adjList = new Node[2];						// aufgestellt, die definitiv
+	private Vertex[] falseSatInstance(){
+		Vertex[] adjList;								//Es wird einfach eine AdjList
+		adjList = new Vertex[2];						// aufgestellt, die definitiv
 		adjList[0].setEdge(adjList[1]);				// einen Cycle enthaelt
 		adjList[1].setEdge(adjList[0]);				// und somit auf jeden Fall
 		return adjList;								// eine Nein-Instanz
