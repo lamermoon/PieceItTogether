@@ -2,14 +2,16 @@ package PieceItTogether.SATSolver;
 
 public class Edge {
 	private final int id;
-	private final Vertex tail;
-	private final Vertex head;
+	private Vertex tail;
+	private Vertex head;
 	
 	/* Konstruktor */
 	public Edge(int id, Vertex tail, Vertex head){
 		this.id = id;
 		this.tail = tail;
 		this.head = head;
+		this.tail.addOutgoingEdge(this.head);
+		this.head.addIncomingEdge(this.tail);
 	}
 	
 	/* Overrides */

@@ -26,7 +26,6 @@ public class SATSolver {
 		return true;							//sonst true
 	}
 	
-	
 	public Vertex[] transitiveClosure(Vertex[] graph) {
 		int i=0;
 		int iTemp=0;

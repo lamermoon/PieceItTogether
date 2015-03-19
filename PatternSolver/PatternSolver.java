@@ -93,13 +93,13 @@ public class PatternSolver {
 							if(left == 'W' && right == 'W') {
 							//(a oder c) und (nicht a oder nicht c)
 								//nicht a impliziert c
-								adjList[na].setEdge(adjList[c]);
+								adjList[na].addOutgoingEdge(adjList[c]);
 								//nicht c impliziert a
-								adjList[nc].setEdge(adjList[a]);
+								adjList[nc].addOutgoingEdge(adjList[a]);
 								//a impliziert nicht c
-								adjList[a].setEdge(adjList[a]);
+								adjList[a].addOutgoingEdge(adjList[a]);
 								//c impliziert nicht a
-								adjList[c].setEdge(adjList[na]);
+								adjList[c].addOutgoingEdge(adjList[na]);
 							} //Zweiter Fall - Left und Right nicht weiss 
 							else if(left != 'W' && right != 'W') {
 								//Pattern nicht erfuellbar
@@ -108,25 +108,25 @@ public class PatternSolver {
 							else if(left == 'W' && right != 'W') {
 							//(a oder a)
 								//nicht a impliziert a
-								adjList[na].setEdge(adjList[a]);
+								adjList[na].addOutgoingEdge(adjList[a]);
 							} //Vierter Fall - Left nicht weiss, right weiss
 							else if(left != 'W' && right == 'W') {
 							//(c oder c)
 								//nicht c impliziert c
-								adjList[nc].setEdge(adjList[c]);
+								adjList[nc].addOutgoingEdge(adjList[c]);
 							} 
 							//Fuenfter Fall - Top und down weiss
 							//Neue Betrachtung! Kein else if!
 							if(top == 'W' && down == 'W') {
 							//(b oder d) und (nicht b oder nicht d)
 								//nicht b impliziert d
-								adjList[nb].setEdge(adjList[d]);
+								adjList[nb].addOutgoingEdge(adjList[d]);
 								//nicht d impliziert b
-								adjList[nd].setEdge(adjList[b]);
+								adjList[nd].addOutgoingEdge(adjList[b]);
 								//b impliziert nicht d
-								adjList[b].setEdge(adjList[nd]);
+								adjList[b].addOutgoingEdge(adjList[nd]);
 								//d impliziert nicht b
-								adjList[d].setEdge(adjList[nb]);
+								adjList[d].addOutgoingEdge(adjList[nb]);
 							} //Sechster Fall - Top und Down nicht weiss
 							else if(top != 'W' && down != 'W') {
 								//Pattern nicht erfuellbar
@@ -135,12 +135,12 @@ public class PatternSolver {
 							else if(top == 'W' && down != 'W') {
 							//(b oder b)
 								//nicht b impliziert b
-								adjList[nb].setEdge(adjList[b]);
+								adjList[nb].addOutgoingEdge(adjList[b]);
 							} //Achter Fall - Top nicht weiss, down weiss
 							else if(top != 'W' && down == 'W') {
 							//(d oder d)
 								//nicht d impliziert d
-								adjList[nd].setEdge(adjList[d]);
+								adjList[nd].addOutgoingEdge(adjList[d]);
 							}
 							
 					/* Wenn das aktuelle Feld ein weisses Feld ist: */
@@ -150,29 +150,29 @@ public class PatternSolver {
 							if(left == 'B' && right == 'B' && top == 'B' && down == 'B'){
 							//(nicht a oder nicht b) und (nicht b oder nicht c) und (nicht a oder nicht c) und (nicht d oder nicht b) und (nicht d oder nicht a) und (nicht d oder nicht c)
 								//(a impliziert nicht b)
-								adjList[a].setEdge(adjList[nb]);
+								adjList[a].addOutgoingEdge(adjList[nb]);
 								//(b impliziert nicht a)
-								adjList[b].setEdge(adjList[na]);
+								adjList[b].addOutgoingEdge(adjList[na]);
 								//(b impliziert nicht c)
-								adjList[b].setEdge(adjList[nc]);
+								adjList[b].addOutgoingEdge(adjList[nc]);
 								//(c impliziert nicht b)
-								adjList[c].setEdge(adjList[nb]);
+								adjList[c].addOutgoingEdge(adjList[nb]);
 								//(a impliziert nicht c)
-								adjList[a].setEdge(adjList[nc]);
+								adjList[a].addOutgoingEdge(adjList[nc]);
 								//(c impliziert nicht a)
-								adjList[c].setEdge(adjList[na]);
+								adjList[c].addOutgoingEdge(adjList[na]);
 								//(d impliziert nicht a)
-								adjList[d].setEdge(adjList[na]);
+								adjList[d].addOutgoingEdge(adjList[na]);
 								//(a impliziert nicht d)
-								adjList[a].setEdge(adjList[nd]);
+								adjList[a].addOutgoingEdge(adjList[nd]);
 								//(d impliziert nicht b)
-								adjList[d].setEdge(adjList[nb]);
+								adjList[d].addOutgoingEdge(adjList[nb]);
 								//(b impliziert nicht d)
-								adjList[b].setEdge(adjList[nd]);
+								adjList[b].addOutgoingEdge(adjList[nd]);
 								//(d impliziert nicht c)
-								adjList[d].setEdge(adjList[nc]);
+								adjList[d].addOutgoingEdge(adjList[nc]);
 								//(c impliziert nicht d)
-								adjList[c].setEdge(adjList[nd]);
+								adjList[c].addOutgoingEdge(adjList[nd]);
 							}
 							//Zweiter Fall: 3 schwarze Nachbarn
 							else if((left == 'B' && top == 'B' && right == 'B') ||
@@ -182,74 +182,74 @@ public class PatternSolver {
 								if(left == 'W' || left == '.'){
 								//(nicht a oder nicht b) und (nicht b oder nicht c) und (nicht c oder nicht a) [und (nicht d oder nicht d)]
 									//(a impliziert nicht b)
-									adjList[a].setEdge(adjList[nb]);
+									adjList[a].addOutgoingEdge(adjList[nb]);
 									//(b impliziert nicht a)
-									adjList[b].setEdge(adjList[na]);
+									adjList[b].addOutgoingEdge(adjList[na]);
 									//(b impliziert nicht c)
-									adjList[b].setEdge(adjList[nc]);
+									adjList[b].addOutgoingEdge(adjList[nc]);
 									//(c impliziert nicht b)
-									adjList[c].setEdge(adjList[nb]);
+									adjList[c].addOutgoingEdge(adjList[nb]);
 									//(a impliziert nicht c)
-									adjList[a].setEdge(adjList[nc]);
+									adjList[a].addOutgoingEdge(adjList[nc]);
 									//(c impliziert nicht a)
-									adjList[c].setEdge(adjList[na]);
+									adjList[c].addOutgoingEdge(adjList[na]);
 									if(left == 'W'){
 										//(d impliziert nicht d)
-										adjList[d].setEdge(adjList[nd]);
+										adjList[d].addOutgoingEdge(adjList[nd]);
 									}
 								}else if(right == 'W' || right == '.'){
 									//(nicht a oder nicht b) und (nicht b oder nicht d) und (nicht d oder nicht a) [und (nicht c oder nicht c)]
 									//(a impliziert nicht b)
-									adjList[a].setEdge(adjList[nb]);
+									adjList[a].addOutgoingEdge(adjList[nb]);
 									//(b impliziert nicht a)
-									adjList[b].setEdge(adjList[na]);
+									adjList[b].addOutgoingEdge(adjList[na]);
 									//(b impliziert nicht d)
-									adjList[b].setEdge(adjList[nd]);
+									adjList[b].addOutgoingEdge(adjList[nd]);
 									//(d impliziert nicht b)
-									adjList[d].setEdge(adjList[nb]);
+									adjList[d].addOutgoingEdge(adjList[nb]);
 									//(a impliziert nicht d)
-									adjList[a].setEdge(adjList[nd]);
+									adjList[a].addOutgoingEdge(adjList[nd]);
 									//(d impliziert nicht a)
-									adjList[d].setEdge(adjList[na]);
+									adjList[d].addOutgoingEdge(adjList[na]);
 									if(right == 'W'){
 										//(c impliziert nicht c)
-										adjList[c].setEdge(adjList[nc]);
+										adjList[c].addOutgoingEdge(adjList[nc]);
 									}
 								}else if(top == 'W' || top == '.'){
 									//(nicht a oder nicht d) und (nicht d oder nicht c) und (nicht c oder nicht a) [und (nicht b oder nicht b)]
 									//(a impliziert nicht d)
-									adjList[a].setEdge(adjList[nd]);
+									adjList[a].addOutgoingEdge(adjList[nd]);
 									//(d impliziert nicht a)
-									adjList[d].setEdge(adjList[na]);
+									adjList[d].addOutgoingEdge(adjList[na]);
 									//(d impliziert nicht c)
-									adjList[d].setEdge(adjList[nc]);
+									adjList[d].addOutgoingEdge(adjList[nc]);
 									//(c impliziert nicht d)
-									adjList[c].setEdge(adjList[nd]);
+									adjList[c].addOutgoingEdge(adjList[nd]);
 									//(a impliziert nicht c)
-									adjList[a].setEdge(adjList[nc]);
+									adjList[a].addOutgoingEdge(adjList[nc]);
 									//(c impliziert nicht a)
-									adjList[c].setEdge(adjList[na]);
+									adjList[c].addOutgoingEdge(adjList[na]);
 									if(top == 'W'){
 										//(b impliziert nicht b)
-										adjList[b].setEdge(adjList[nb]);
+										adjList[b].addOutgoingEdge(adjList[nb]);
 									}
 								}else if(down == 'W' || down == '.'){
 									//(nicht d oder nicht b) und (nicht b oder nicht c) und (nicht c oder nicht d) [und (nicht a oder nicht a)]
 									//(d impliziert nicht b)
-									adjList[d].setEdge(adjList[nb]);
+									adjList[d].addOutgoingEdge(adjList[nb]);
 									//(b impliziert nicht d)
-									adjList[b].setEdge(adjList[nd]);
+									adjList[b].addOutgoingEdge(adjList[nd]);
 									//(b impliziert nicht c)
-									adjList[b].setEdge(adjList[nc]);
+									adjList[b].addOutgoingEdge(adjList[nc]);
 									//(c impliziert nicht b)
-									adjList[c].setEdge(adjList[nb]);
+									adjList[c].addOutgoingEdge(adjList[nb]);
 									//(d impliziert nicht c)
-									adjList[d].setEdge(adjList[nc]);
+									adjList[d].addOutgoingEdge(adjList[nc]);
 									//(c impliziert nicht d)
-									adjList[c].setEdge(adjList[nd]);
+									adjList[c].addOutgoingEdge(adjList[nd]);
 									if(top == 'W'){
 										//(a impliziert nicht a)
-										adjList[a].setEdge(adjList[na]);
+										adjList[a].addOutgoingEdge(adjList[na]);
 									}
 								}
 							}
@@ -257,184 +257,184 @@ public class PatternSolver {
 							else if(right == 'B' && down == 'B'){
 							//(c oder d) und (nicht c oder nicht d) [und (nicht a oder nicht a)] [und (nicht b oder nicht b)]
 								//(nicht c impliziert d)
-								adjList[nc].setEdge(adjList[d]);
+								adjList[nc].addOutgoingEdge(adjList[d]);
 								//(nicht d impliziert c)
-								adjList[nd].setEdge(adjList[c]);
+								adjList[nd].addOutgoingEdge(adjList[c]);
 								//(c impliziert nicht d)
-								adjList[c].setEdge(adjList[nd]);
+								adjList[c].addOutgoingEdge(adjList[nd]);
 								//(d impliziert nicht c)
-								adjList[d].setEdge(adjList[nc]);
+								adjList[d].addOutgoingEdge(adjList[nc]);
 								if(left == 'W'){
 									//(a impliziert nicht a)
-									adjList[a].setEdge(adjList[na]);
+									adjList[a].addOutgoingEdge(adjList[na]);
 								}
 								if(top == 'W'){
 									//(b impliziert nicht b)
-									adjList[b].setEdge(adjList[nb]);
+									adjList[b].addOutgoingEdge(adjList[nb]);
 								}
 							}
 							else if(top == 'B' && down == 'B'){
 							//(b oder d) und (nicht b oder nicht d) [und (nicht a oder nicht a)] [und (nicht c oder nicht c)]
 								//(nicht b impliziert d)
-								adjList[nb].setEdge(adjList[d]);
+								adjList[nb].addOutgoingEdge(adjList[d]);
 								//(nicht d impliziert b)
-								adjList[nd].setEdge(adjList[b]);
+								adjList[nd].addOutgoingEdge(adjList[b]);
 								//(b impliziert nicht d)
-								adjList[nb].setEdge(adjList[d]);
+								adjList[nb].addOutgoingEdge(adjList[d]);
 								//(d impliziert nicht b)
-								adjList[d].setEdge(adjList[nb]);
+								adjList[d].addOutgoingEdge(adjList[nb]);
 								if(left == 'W'){
 									//(a impliziert nicht a)
-									adjList[a].setEdge(adjList[na]);
+									adjList[a].addOutgoingEdge(adjList[na]);
 								}
 								if(top == 'W'){
 									//(c impliziert nicht c)
-									adjList[c].setEdge(adjList[nc]);
+									adjList[c].addOutgoingEdge(adjList[nc]);
 								}	
 							}
 							else if(top == 'B' && right == 'B'){
 							//(c oder b) und (nicht c oder nicht b) [und (nicht a oder nicht a)] [und (nicht d oder nicht d)]
 								//(nicht c impliziert b)
-								adjList[nc].setEdge(adjList[b]);
+								adjList[nc].addOutgoingEdge(adjList[b]);
 								//(nicht b impliziert c)
-								adjList[nb].setEdge(adjList[c]);
+								adjList[nb].addOutgoingEdge(adjList[c]);
 								//(c impliziert nicht b)
-								adjList[c].setEdge(adjList[nb]);
+								adjList[c].addOutgoingEdge(adjList[nb]);
 								//(b impliziert nicht c)
-								adjList[b].setEdge(adjList[nc]);
+								adjList[b].addOutgoingEdge(adjList[nc]);
 								if(left == 'W'){
 									//(a impliziert nicht a)
-									adjList[a].setEdge(adjList[na]);
+									adjList[a].addOutgoingEdge(adjList[na]);
 								}
 								if(top == 'W'){
 									//(d impliziert nicht d)
-									adjList[d].setEdge(adjList[nd]);
+									adjList[d].addOutgoingEdge(adjList[nd]);
 								}	
 							}
 							else if(left == 'B' &&  down == 'B'){
 							//(a oder d) und (nicht a oder nicht d) [und (nicht b oder nicht b)] [und (nicht c oder nicht c)]
 								//(nicht a impliziert d)
-								adjList[na].setEdge(adjList[d]);
+								adjList[na].addOutgoingEdge(adjList[d]);
 								//(nicht d impliziert a)
-								adjList[nd].setEdge(adjList[a]);
+								adjList[nd].addOutgoingEdge(adjList[a]);
 								//(a impliziert nicht d)
-								adjList[a].setEdge(adjList[nd]);
+								adjList[a].addOutgoingEdge(adjList[nd]);
 								//(d impliziert nicht a)
-								adjList[d].setEdge(adjList[na]);
+								adjList[d].addOutgoingEdge(adjList[na]);
 								if(left == 'W'){
 									//(b impliziert nicht b)
-									adjList[b].setEdge(adjList[nb]);
+									adjList[b].addOutgoingEdge(adjList[nb]);
 								}
 								if(top == 'W'){
 									//(c impliziert nicht c)
-									adjList[c].setEdge(adjList[nc]);
+									adjList[c].addOutgoingEdge(adjList[nc]);
 								}
 							}
 							else if(left == 'B' && right == 'B'){
 							//(a oder c) und (nicht a oder nicht c) [und (nicht b oder nicht b)] [und (nicht d oder nicht d)]
 								//(nicht a impliziert c)
-								adjList[na].setEdge(adjList[c]);
+								adjList[na].addOutgoingEdge(adjList[c]);
 								//(nicht c impliziert a)
-								adjList[nc].setEdge(adjList[a]);
+								adjList[nc].addOutgoingEdge(adjList[a]);
 								//(a impliziert nicht c)
-								adjList[a].setEdge(adjList[nc]);
+								adjList[a].addOutgoingEdge(adjList[nc]);
 								//(c impliziert nicht a)
-								adjList[c].setEdge(adjList[na]);
+								adjList[c].addOutgoingEdge(adjList[na]);
 								if(left == 'W'){
 									//(b impliziert nicht b)
-									adjList[b].setEdge(adjList[nb]);
+									adjList[b].addOutgoingEdge(adjList[nb]);
 								}
 								if(top == 'W'){
 									//(d impliziert nicht d)
-									adjList[d].setEdge(adjList[nd]);
+									adjList[d].addOutgoingEdge(adjList[nd]);
 								}
 							}
 							else if(left == 'B' && top == 'B'){
 							//(a oder b) und (nicht a oder nicht b) [und (nicht c oder nicht c)] [und (nicht d oder nicht d)]
 								//(nicht a impliziert b)
-								adjList[na].setEdge(adjList[b]);
+								adjList[na].addOutgoingEdge(adjList[b]);
 								//(nicht b impliziert a)
-								adjList[nb].setEdge(adjList[a]);
+								adjList[nb].addOutgoingEdge(adjList[a]);
 								//(a impliziert nicht b)
-								adjList[a].setEdge(adjList[nb]);
+								adjList[a].addOutgoingEdge(adjList[nb]);
 								//(b impliziert nicht a)
-								adjList[b].setEdge(adjList[na]);
+								adjList[b].addOutgoingEdge(adjList[na]);
 								if(left == 'W'){
 									//(c impliziert nicht c)
-									adjList[c].setEdge(adjList[nc]);
+									adjList[c].addOutgoingEdge(adjList[nc]);
 								}
 								if(top == 'W'){
 									//(d impliziert nicht d)
-									adjList[d].setEdge(adjList[nd]);
+									adjList[d].addOutgoingEdge(adjList[nd]);
 								}
 							}
 							//Vierter Fall: 1 schwarzer Nachbar
 							else if(left == 'B'){
 							//(a oder a) [und (nicht b oder nicht b)] [und (nicht c oder nicht c)] [und (nicht d oder nicht d)]
 								//(nicht a impliziert a)
-								adjList[na].setEdge(adjList[a]);
+								adjList[na].addOutgoingEdge(adjList[a]);
 								if(top == 'W'){
 									//(b impliziert nicht b)
-									adjList[b].setEdge(adjList[nb]);
+									adjList[b].addOutgoingEdge(adjList[nb]);
 								}
 								if(right == 'W'){
 									//(c impliziert nicht c)
-									adjList[c].setEdge(adjList[nc]);
+									adjList[c].addOutgoingEdge(adjList[nc]);
 								}
 								if(down == 'W'){
 									//(d impliziert nicht d)
-									adjList[d].setEdge(adjList[nd]);
+									adjList[d].addOutgoingEdge(adjList[nd]);
 								}
 							}
 							else if(right == 'B'){
 							//(c oder c) [und (nicht b oder nicht b)] [und (nicht a oder nicht a)] [und (nicht d oder nicht d)]
 								//(nicht c impliziert c)
-								adjList[nc].setEdge(adjList[c]);
+								adjList[nc].addOutgoingEdge(adjList[c]);
 								if(top == 'W'){
 									//(b impliziert nicht b)
-									adjList[b].setEdge(adjList[nb]);
+									adjList[b].addOutgoingEdge(adjList[nb]);
 								}
 								if(right == 'W'){
 									//(a impliziert nicht a)
-									adjList[a].setEdge(adjList[na]);
+									adjList[a].addOutgoingEdge(adjList[na]);
 								}
 								if(down == 'W'){
 									//(d impliziert nicht d)
-									adjList[d].setEdge(adjList[nd]);
+									adjList[d].addOutgoingEdge(adjList[nd]);
 								}	
 							}
 							else if(top == 'B'){
 							//(b oder b) [und (nicht a oder nicht a)] [und (nicht c oder nicht c)] [und (nicht d oder nicht d)]
 								//(nicht b impliziert b)
-								adjList[nb].setEdge(adjList[b]);
+								adjList[nb].addOutgoingEdge(adjList[b]);
 								if(top == 'W'){
 									//(a impliziert nicht a)
-									adjList[a].setEdge(adjList[na]);
+									adjList[a].addOutgoingEdge(adjList[na]);
 								}
 								if(right == 'W'){
 									//(c impliziert nicht c)
-									adjList[c].setEdge(adjList[nc]);
+									adjList[c].addOutgoingEdge(adjList[nc]);
 								}
 								if(down == 'W'){
 									//(d impliziert nicht d)
-									adjList[d].setEdge(adjList[nd]);
+									adjList[d].addOutgoingEdge(adjList[nd]);
 								}
 							}
 							else if(down == 'B'){
 							//(d oder d) [und (nicht b oder nicht b)] [und (nicht c oder nicht c)] [und (nicht a oder nicht a)]
 								//(nicht d impliziert d)
-								adjList[nd].setEdge(adjList[d]);
+								adjList[nd].addOutgoingEdge(adjList[d]);
 								if(top == 'W'){
 									//(b impliziert nicht b)
-									adjList[b].setEdge(adjList[nb]);
+									adjList[b].addOutgoingEdge(adjList[nb]);
 								}
 								if(right == 'W'){
 									//(c impliziert nicht c)
-									adjList[c].setEdge(adjList[nc]);
+									adjList[c].addOutgoingEdge(adjList[nc]);
 								}
 								if(down == 'W'){
 									//(a impliziert nicht a)
-									adjList[a].setEdge(adjList[na]);
+									adjList[a].addOutgoingEdge(adjList[na]);
 								}
 							}
 							//Fünfter Fall: 0 schwarze Nachbarn
@@ -460,8 +460,8 @@ public class PatternSolver {
 	private Vertex[] falseSatInstance(){
 		Vertex[] adjList;								//Es wird einfach eine AdjList
 		adjList = new Vertex[2];						// aufgestellt, die definitiv
-		adjList[0].setEdge(adjList[1]);				// einen Cycle enthaelt
-		adjList[1].setEdge(adjList[0]);				// und somit auf jeden Fall
+		adjList[0].addOutgoingEdge(adjList[1]);				// einen Cycle enthaelt
+		adjList[1].addOutgoingEdge(adjList[0]);				// und somit auf jeden Fall
 		return adjList;								// eine Nein-Instanz
 													// des SATSolvers ist.						
 	}
