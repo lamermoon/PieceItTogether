@@ -43,12 +43,9 @@ public class SATSolver {
 		do	{
 			i=0;
 			for(int j=0;j<graph.length;j++) {		//gehe durch graphen
-				int k=0;
-				while(graph[j].getOutgoingEdges().get(k)!=null) {	//für alle nachfolgeknoten
-					int l=0;
-					while(graph[j].getOutgoingEdges().get(k).getOutgoingEdges().get(l)!=null) {	//fuege dessen nachfolgeknoten ein
-						int m=0;
-						while(graph[j].getOutgoingEdges().get(m)!=null) {	//TODO: bessere loesung fuer die Ueberpruefung,
+				for(int k=0;graph[j].getOutgoingEdges().get(k)!=null;k++) {	//für alle nachfolgeknoten
+					for(int l=0;graph[j].getOutgoingEdges().get(k).getOutgoingEdges().get(l)!=null;l++) {	//fuege dessen nachfolgeknoten ein
+						for(int m=0;graph[j].getOutgoingEdges().get(m)!=null;m++) {	//TODO: bessere loesung fuer die Ueberpruefung,
 							//ob sich etwas geaendert hat
 							if(graph[j].getOutgoingEdges().get(m).equals(graph[j].getOutgoingEdges().get(k).getOutgoingEdges().get(l))) {	//falls edge bereits vorhanden itemp=0
 								iTemp=0;
@@ -58,9 +55,9 @@ public class SATSolver {
 							}
 						}
 						graph[j].addOutgoingEdge(graph[l]);	//setze neue Kante
-					}
-					if(iTemp!=0) {			//Ist das noetig? Wollte vermeiden, dass i oben ueberschrieben wird
-						i=1;
+						if  (iTemp==1) {
+							i=1;
+						}
 					}
 				}
 			}
