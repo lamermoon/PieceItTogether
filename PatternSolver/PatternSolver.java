@@ -18,10 +18,11 @@ public class PatternSolver {
 				output[i] = "**ignored**\n";
 			} else {
 				Vertex[] adjList = reduceTo2Sat(cases.get(i));
-				/* VERSION 1*/
-				
+		/* VERSION Marcel*/
 				boolean answer = sat.solve(adjList);
-				/* VERSION 2 
+		/* VERSION Marcel ENDE */
+				
+		/* VERSION Thore
 				Graph g = new Graph();
 				for(int j = 0; j < adjList.length; j++){
 					for(int k = 0; k < adjList[j].getOutgoingEdges().size(); k++){
@@ -29,7 +30,7 @@ public class PatternSolver {
 					}
 				}
 				boolean answer = sat.solve(g);
-				/* VERSION 2 ENDE */
+		/* VERSION Thore ENDE */
 				if(answer){
 					output[i] = "Yes\n";
 				} else {
@@ -158,7 +159,6 @@ public class PatternSolver {
 							
 					/* Wenn das aktuelle Feld ein weisses Feld ist: */
 						} else {
-							//TODO: Faelle abarbeiten
 							//Erster Fall: 4 schwarze Nachbarn
 							if(left == 'B' && right == 'B' && top == 'B' && down == 'B'){
 							//(nicht a oder nicht b) und (nicht b oder nicht c) und (nicht a oder nicht c) und (nicht d oder nicht b) und (nicht d oder nicht a) und (nicht d oder nicht c)

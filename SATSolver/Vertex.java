@@ -23,10 +23,12 @@ public class Vertex {
 	
 	public void addOutgoingEdge(Vertex v){
 		this.outgoingEdges.add(v);
+		v.incomingEdges.add(this);
 	}
 	
 	public void addIncomingEdge(Vertex v){
 		this.incomingEdges.add(v);
+		v.outgoingEdges.add(this);
 	}
 	
 	/* Getter */
