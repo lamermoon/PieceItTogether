@@ -18,6 +18,10 @@ public class PatternSolver {
 				output[i] = "**ignored**\n";
 			} else {
 				Vertex[] adjList = reduceTo2Sat(cases.get(i));
+				/* VERSION 1*/
+				
+				boolean answer = sat.solve(adjList);
+				/* VERSION 2 
 				Graph g = new Graph();
 				for(int j = 0; j < adjList.length; j++){
 					for(int k = 0; k < adjList[j].getOutgoingEdges().size(); k++){
@@ -25,6 +29,7 @@ public class PatternSolver {
 					}
 				}
 				boolean answer = sat.solve(g);
+				/* VERSION 2 ENDE */
 				if(answer){
 					output[i] = "Yes\n";
 				} else {
@@ -445,7 +450,7 @@ public class PatternSolver {
 									adjList[a].addOutgoingEdge(adjList[na]);
 								}
 							}
-							//Fünfter Fall: 0 schwarze Nachbarn
+							//Fuenfter Fall: 0 schwarze Nachbarn
 							else{
 								return falseSatInstance();
 							}
@@ -466,8 +471,9 @@ public class PatternSolver {
 	}
 	
 	private Vertex[] falseSatInstance(){
-		Vertex[] adjList;								//Es wird einfach eine AdjList
-		adjList = new Vertex[2];						// aufgestellt, die definitiv
+		Vertex[] adjList = new Vertex[2];					//Es wird einfach eine AdjList
+		adjList[0] = new Vertex(0);							// aufgestellt, die definitiv
+		adjList[1] = new Vertex(1);
 		adjList[0].addOutgoingEdge(adjList[1]);				// einen Cycle enthaelt
 		adjList[1].addOutgoingEdge(adjList[0]);				// und somit auf jeden Fall
 		return adjList;								// eine Nein-Instanz
