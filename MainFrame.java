@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
@@ -25,7 +24,6 @@ public class MainFrame extends JFrame implements ActionListener{
 	private JPanel top, bottom, subCenter, inputPanel, outputPanel;
 	private JTextArea inputArea, outputArea, errorArea;
 	private JScrollPane isp, osp, esp;
-	private JProgressBar progBar;
 	private static final long serialVersionUID = 1L;
 	
 	public MainFrame(String title) throws Exception{
@@ -71,10 +69,6 @@ public class MainFrame extends JFrame implements ActionListener{
 		
 		this.esp = new JScrollPane(errorArea);
 		
-		//TODO: ProgressBar zeigt Fortschritt an
-		this.progBar = new JProgressBar();
-		this.progBar.setVisible(false);
-		
 		this.top = new JPanel();
 		this.top.setLayout(new BorderLayout());
 		this.top.add(new JLabel(" Piece It Together"), BorderLayout.NORTH);
@@ -93,7 +87,6 @@ public class MainFrame extends JFrame implements ActionListener{
 		
 		this.bottom = new JPanel();
 		this.bottom.add(button);
-		this.bottom.add(progBar);
 		
 		this.setSize(1000,800);
 		this.getContentPane().setLayout(new BorderLayout());
@@ -125,7 +118,6 @@ public class MainFrame extends JFrame implements ActionListener{
 	}
 	
 	private void init(PatternSolver ps) throws IOException{
-		//TODO: Fehleranfaelligkeit verringern (zu viele Abstuerze bei fehlerhaften Eingaben)
 		String[] input = inputArea.getText().split("\\n");
 		char[][] pattern;
 		try{

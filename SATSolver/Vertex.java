@@ -13,14 +13,6 @@ public class Vertex {
 	}
 	
 	/* Setter/Adder */
-	public void setIncomingEdges(ArrayList<Vertex> inE){
-		this.incomingEdges = inE;
-	}
-	
-	public void setOutgoingEdges(ArrayList<Vertex> outE){
-		this.outgoingEdges = outE;
-	}
-	
 	public void addOutgoingEdge(Vertex v){
 		this.outgoingEdges.add(v);
 		v.incomingEdges.add(this);

@@ -2,13 +2,11 @@ package PieceItTogether.PatternSolver;
 
 import java.util.ArrayList;
 
-import PieceItTogether.SATSolver.Edge;
-import PieceItTogether.SATSolver.Graph;
 import PieceItTogether.SATSolver.SATSolver;
 import PieceItTogether.SATSolver.Vertex;
 
 public class PatternSolver {
-	final ArrayList<Pattern> cases = new ArrayList<Pattern>(); 
+	private ArrayList<Pattern> cases = new ArrayList<Pattern>(); 
 	
 	public String[] solve(){
 		String[] output = new String[cases.size()];
@@ -18,19 +16,7 @@ public class PatternSolver {
 				output[i] = "**ignored**\n";
 			} else {
 				Vertex[] adjList = reduceTo2Sat(cases.get(i));
-		/* VERSION Marcel*/
 				boolean answer = sat.solve(adjList);
-		/* VERSION Marcel ENDE */
-				
-		/* VERSION Thore
-				Graph g = new Graph();
-				for(int j = 0; j < adjList.length; j++){
-					for(int k = 0; k < adjList[j].getOutgoingEdges().size(); k++){
-						g.addEdge(new Edge(adjList[j], adjList[j].getOutgoingEdge(k)));
-					}
-				}
-				boolean answer = sat.solve(g);
-		/* VERSION Thore ENDE */
 				if(answer){
 					output[i] = "Yes\n";
 				} else {
@@ -471,13 +457,12 @@ public class PatternSolver {
 	}
 	
 	private Vertex[] falseSatInstance(){
-		Vertex[] adjList = new Vertex[2];					//Es wird einfach eine AdjList
-		adjList[0] = new Vertex(0);							// aufgestellt, die definitiv
-		adjList[1] = new Vertex(1);
-		adjList[0].addOutgoingEdge(adjList[1]);				// einen Cycle enthaelt
-		adjList[1].addOutgoingEdge(adjList[0]);				// und somit auf jeden Fall
-		return adjList;								// eine Nein-Instanz
-													// des SATSolvers ist.						
+		Vertex[] adjList = new Vertex[2];			//Es wird einfach eine AdjList
+		adjList[0] = new Vertex(0);					// aufgestellt, die definitiv
+		adjList[1] = new Vertex(1);					// einen Cycle enthaelt
+		adjList[0].addOutgoingEdge(adjList[1]);		// und somit auf jeden Fall
+		adjList[1].addOutgoingEdge(adjList[0]);		// eine Nein-Instanz
+		return adjList;								// des SATSolvers ist.
 	}
 	
 	public void addPattern(Pattern p){
