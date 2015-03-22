@@ -6,20 +6,16 @@ public class SATSolver {
 	public boolean solve(Vertex[] adjList){
 		adjList= transitiveClosure(adjList);
 		for(int i=0;i<adjList.length;i=i+2) {			//gehe durch alle "nichtnegierten Listen"
-			int j=0;
-			while(adjList[i].getOutgoingEdges().get(j)!=null) {	//i-te Liste
+			for(int j = 0; j < adjList[i].getOutgoingEdges().size(); j++) {	//i-te Liste
 				if(adjList[i].getOutgoingEdges().get(j).equals(adjList[i+1])) {	//schaue, ob Implikation zu negierter Liste
-					int k=0;
-					while(adjList[i+1].getOutgoingEdges().get(k)!=null) {			//falls ja , gehe durch negierte Liste
+					for(int k = 0; k < adjList[i+1].getOutgoingEdges().size(); k++) {			//falls ja , gehe durch negierte Liste
 						if(adjList[i+1].getOutgoingEdges().get(k).equals(adjList[i])) {
 							return false;				//falls dort Implikation zu nichtnegierter dann Cycle also false
 						}
-						k++;
 					}
 					break;							//falls in erster while-Schleife bereits negierte Liste gefunden wurde,
 													//jedoch nicht umgekehrt, ist jede weitere Untersuchung dieses Listenpaars unnoetig
 				}
-				j++;
 			}
 		}
 		return true;							//sonst true
@@ -41,22 +37,22 @@ public class SATSolver {
 		boolean changed = false;
 		boolean changedTemp = false;
 		do	{
-			changed=false;
-			for(int j=0;j<graph.length;j++) {		//gehe durch graphen
-				for(int k=0;graph[j].getOutgoingEdges().get(k)!=null;k++) {	//für alle nachfolgeknoten
-					for(int l=0;graph[j].getOutgoingEdges().get(k).getOutgoingEdges().get(l)!=null;l++) {	//fuege dessen nachfolgeknoten ein
-						for(int m=0;graph[j].getOutgoingEdges().get(m)!=null;m++) {	//TODO: bessere loesung fuer die Ueberpruefung,
+			changed = false;
+			for(int j = 0; j < graph.length; j++) {		//gehe durch graphen
+				for(int k = 0; k < graph[j].getOutgoingEdges().size(); k++) {	//für alle nachfolgeknoten
+					for(int l = 0; l < graph[j].getOutgoingEdges().get(k).getOutgoingEdges().size(); l++) {	//fuege dessen nachfolgeknoten ein
+						for(int m = 0; m < graph[j].getOutgoingEdges().size(); m++) {	//TODO: bessere loesung fuer die Ueberpruefung,
 							//ob sich etwas geaendert hat
 							if(graph[j].getOutgoingEdges().get(m).equals(graph[j].getOutgoingEdges().get(k).getOutgoingEdges().get(l))) {	//falls edge bereits vorhanden itemp=0
-								changedTemp=false;
+								changedTemp = false;
 								break;
 							} else {			//sonst iTemp=1 (es hat sich etwas verändert)
-								changedTemp=true;
+								changedTemp = true;
 							}
 						}
 						graph[j].addOutgoingEdge(graph[l]);	//setze neue Kante
 						if  (changedTemp) {
-							changed=true;
+							changed = true;
 						}
 					}
 				}
