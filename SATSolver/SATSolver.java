@@ -38,30 +38,30 @@ public class SATSolver {
 	}
 	
 	public Vertex[] transitiveClosure(Vertex[] graph) {
-		int i=0;
-		int iTemp=0;
+		boolean changed = false;
+		boolean changedTemp = false;
 		do	{
-			i=0;
+			changed=false;
 			for(int j=0;j<graph.length;j++) {		//gehe durch graphen
 				for(int k=0;graph[j].getOutgoingEdges().get(k)!=null;k++) {	//für alle nachfolgeknoten
 					for(int l=0;graph[j].getOutgoingEdges().get(k).getOutgoingEdges().get(l)!=null;l++) {	//fuege dessen nachfolgeknoten ein
 						for(int m=0;graph[j].getOutgoingEdges().get(m)!=null;m++) {	//TODO: bessere loesung fuer die Ueberpruefung,
 							//ob sich etwas geaendert hat
 							if(graph[j].getOutgoingEdges().get(m).equals(graph[j].getOutgoingEdges().get(k).getOutgoingEdges().get(l))) {	//falls edge bereits vorhanden itemp=0
-								iTemp=0;
+								changedTemp=false;
 								break;
 							} else {			//sonst iTemp=1 (es hat sich etwas verändert)
-								iTemp=1;
+								changedTemp=true;
 							}
 						}
 						graph[j].addOutgoingEdge(graph[l]);	//setze neue Kante
-						if  (iTemp==1) {
-							i=1;
+						if  (changedTemp) {
+							changed=true;
 						}
 					}
 				}
 			}
-		} while(i!=0);				//Iterationen solange sich etwas veraendert
+		} while(changed);				//Iterationen solange sich etwas veraendert
 		return graph;
 	}
 }
