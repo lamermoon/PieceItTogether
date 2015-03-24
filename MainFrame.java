@@ -7,32 +7,39 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import PieceItTogether.PatternSolver.PatternSolver;
 import PieceItTogether.PatternSolver.Pattern;
 
 public class MainFrame extends JFrame implements ActionListener{
-	private JButton button;
-	private JSplitPane ioPanel, center;
-	private JPanel top, bottom, subCenter, inputPanel, outputPanel;
+	private JButton solve, generate;
+	private JSplitPane ioPanel, solveCenter;
+	private JPanel solveTop, solveBottom, subCenter, inputPanel, outputPanel, solvePanel, generatePanel;
 	private JTextArea inputArea, outputArea, errorArea;
 	private JScrollPane isp, osp, esp;
+	private JTextField n, m;
+	private JRadioButton yes, no;
+	private ButtonGroup instance;
 	private static final long serialVersionUID = 1L;
 	
 	public MainFrame(String title) throws Exception{
 		super(title);
 		
-		this.button = new JButton("Solve");
-		this.button.setSize(25, 50);
-		this.button.addActionListener(this);
-		
+		this.solve = new JButton("Solve");
+		this.solve.setSize(25, 50);
+		this.solve.addActionListener(this);
+				
 		this.inputArea = new JTextArea();
 		this.inputArea.setFont(new Font(Font.MONOSPACED, 5, 16));
 		this.inputArea.setSize(750, 700);
@@ -69,9 +76,9 @@ public class MainFrame extends JFrame implements ActionListener{
 		
 		this.esp = new JScrollPane(errorArea);
 		
-		this.top = new JPanel();
-		this.top.setLayout(new BorderLayout());
-		this.top.add(new JLabel(" Piece It Together"), BorderLayout.NORTH);
+		this.solveTop = new JPanel();
+		this.solveTop.setLayout(new BorderLayout());
+		this.solveTop.add(new JLabel(" Piece It Together"), BorderLayout.NORTH);
 		
 		
 		this.ioPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, inputPanel, outputPanel);
@@ -82,34 +89,112 @@ public class MainFrame extends JFrame implements ActionListener{
 		this.subCenter.add(new JLabel("ERROR Output:"), BorderLayout.NORTH);
 		this.subCenter.add(esp, BorderLayout.CENTER);
 		
-		this.center = new JSplitPane(JSplitPane.VERTICAL_SPLIT, ioPanel, subCenter);
-		this.center.setDividerLocation(inputArea.getHeight()-100);
+		this.solveCenter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, ioPanel, subCenter);
+		this.solveCenter.setDividerLocation(inputArea.getHeight()-100);
 		
-		this.bottom = new JPanel();
-		this.bottom.add(button);
+		this.solveBottom = new JPanel();
+		this.solveBottom.add(solve);
 		
-		this.setSize(1000,800);
+		this.solvePanel = new JPanel();
+		this.solvePanel.setLayout(new BorderLayout());
+		this.solvePanel.add(solveTop, BorderLayout.NORTH);
+		this.solvePanel.add(solveCenter, BorderLayout.CENTER);
+		this.solvePanel.add(solveBottom, BorderLayout.SOUTH);
+		
+		this.generate = new JButton("Generate");
+		this.generate.addActionListener(this);
+		
+		this.n = new JTextField();
+		this.n.setSize(100, 50);
+		this.n.setMinimumSize(new Dimension(100, 50));
+		this.n.setMaximumSize(new Dimension(100, 50));
+		
+		this.m = new JTextField();
+		this.m.setSize(100, 50);
+		this.m.setMinimumSize(new Dimension(100, 50));
+		this.m.setMaximumSize(new Dimension(100, 50));
+		
+		this.yes = new JRadioButton("Yes");
+		this.yes.addActionListener(this);
+		
+		this.no = new JRadioButton("No");
+		this.no.addActionListener(this);
+		
+		this.instance = new ButtonGroup();
+		this.instance.add(yes);
+		this.instance.add(no);
+		
+		this.generatePanel = new JPanel();
+		this.generatePanel.setLayout(new BoxLayout(this.generatePanel, BoxLayout.X_AXIS));
+		this.generatePanel.add(new JLabel("  Hight: "));
+		this.generatePanel.add(n);
+		this.generatePanel.add(new JLabel("  Width: "));
+		this.generatePanel.add(m);
+		this.generatePanel.add(new JLabel("  Instance:"));
+		this.generatePanel.add(yes);
+		this.generatePanel.add(no);
+		this.generatePanel.add(generate);
+		
+		this.setSize(1000,900);
 		this.getContentPane().setLayout(new BorderLayout());
-		this.getContentPane().add(top, BorderLayout.NORTH);
-		this.getContentPane().add(center, BorderLayout.CENTER);
-		this.getContentPane().add(bottom, BorderLayout.SOUTH);
+		this.getContentPane().add(solvePanel, BorderLayout.CENTER);
+		this.getContentPane().add(generatePanel, BorderLayout.SOUTH);
 		
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	public void actionPerformed(ActionEvent arg0) {
-		PatternSolver ps = new PatternSolver();
-		this.errorArea.setText("");
-		try{
-			init(ps);
-			String[] answers = ps.solve();
-			this.outputArea.setText("");
-			for(int i = 0; i < answers.length; i++){
-				this.outputArea.append(answers[i]);
+	public void actionPerformed(ActionEvent ae) {
+		if(ae.getSource() == this.solve){
+			PatternSolver ps = new PatternSolver();
+			this.errorArea.setText("");
+			try{
+				init(ps);
+				String[] answers = ps.solve();
+				this.outputArea.setText("");
+				for(int i = 0; i < answers.length; i++){
+					this.outputArea.append(answers[i]);
+				}
+			}
+			catch (IOException e){printError(0);}
+		}else if(ae.getSource() == this.generate){
+			try{
+				int n = Integer.parseInt(this.n.getText());
+				int m = Integer.parseInt(this.m.getText());
+				if(this.yes.isSelected() || this.no.isSelected()){
+					boolean isInstance = this.yes.isSelected();
+					generateInstance(n, m, isInstance);
+				}else{
+					printError(8);
+				}
+			}catch(NumberFormatException e){
+				printError(7);
 			}
 		}
-		catch (IOException e){printError(0);}
+	}
+	
+	private void generateInstance(int n, int m, boolean isInstance){
+		this.inputArea.setText("1\n"+n+" "+m+"\n");
+		if(n%2 == 0){
+			for(int i = 0; i < n; i++){
+				if(i%2==0){
+					for(int j = 0; j < (m/3); j++){
+						this.inputArea.append("BWW");
+					}
+					
+					this.inputArea.append("\n");
+				}else{
+					for(int j = 0; j < (m/3); j++){
+						this.inputArea.append("WWB");
+					}
+					this.inputArea.append("\n");
+				}
+			}
+		}else if(n%2 == 1 && n >= 3){
+			
+		}else{
+			
+		}
 	}
 	
 	public static void main(String[] args) throws Exception{
@@ -143,7 +228,7 @@ public class MainFrame extends JFrame implements ActionListener{
 							    		if(c.length == m){
 							    			pattern[j] = c;
 							    		} else {
-							    			this.errorArea.setText("ALERT: Test case "+(i+1)+" does not have enough letters in line "+(j+1)+"\n" +
+							    			this.errorArea.setText("ALERT: Test case "+(i+1)+" has a wrong amount of letters in line "+(j+1)+"\n" +
 							    					"Test case "+(i+1)+" will be ignored.");
 							    			addTestCase = false;
 							    		}
@@ -172,9 +257,9 @@ public class MainFrame extends JFrame implements ActionListener{
 		catch(StringIndexOutOfBoundsException e){printError(4);}
 	}
 	
-	private void printError(int n){
+	private void printError(int i){
 		String s;
-		switch(n){
+		switch(i){
 			case 0: s = "ERROR: IOException occured during init().";
 					break;
 			case 1: s = "ERROR: First line must contain a number between 0 and 100!";
@@ -189,6 +274,10 @@ public class MainFrame extends JFrame implements ActionListener{
 					break;
 			case 6: s = "ALERT: Not enough test cases given.\n" +
 					"Please add test cases or correct the number given in line 1.";
+					break;
+			case 7: s = "ERROR: Please enter integer between 0 and 500 for width and hight.";
+					break;
+			case 8: s = "ERROR: Please check 'Yes' or 'No' depending on what kind of instance you want to be created.";
 					break;
 			
 			default: s = "An error has occured. Please restart the programm.";
