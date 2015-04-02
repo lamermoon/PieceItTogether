@@ -25,14 +25,6 @@ public class Graph {
 		return this.v;
 	}
 	
-	//Setter/Adder
-	public void addOutEdge(Vertex a, Vertex b) {
-		a.addOutgoingEdge(b);
-	}
-	public void addInEdge(Vertex a, Vertex b) {
-		a.addIncomingEdge(b);
-	}
-	
 	//Ueberpruefe ob direkte Verbindung zwischen zwei Knoten besteht
 	public boolean directConnection(Vertex a, Vertex b) {
 		return a.getOutgoingEdges().contains(b);
@@ -49,7 +41,7 @@ public class Graph {
 		for(int i=0;i<x.length;i++) {
 			for(int j=0;y[i].getOutgoingEdge(j)!=null;j++) {
 				if(!a.directConnection(x[y[i].getID()], x[y[i].getOutgoingEdge(j).getID()])) {
-					a.addOutEdge(x[y[i].getID()], x[y[i].getOutgoingEdge(j).getID()]);
+					x[y[i].getID()].addOutgoingEdge(x[y[i].getOutgoingEdge(j).getID()]);
 				}
 			}
 		}

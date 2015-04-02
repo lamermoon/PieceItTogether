@@ -41,4 +41,36 @@ public class SATSolver {
 		}while(changed);
 		return graph;
 	}
+	private Graph transitiveClosureNew(Graph e){
+		//Logarithmischer Algo
+		Graph deltaE = new Graph(e);
+		Graph eX = new Graph(e);
+		while(!eX.isEmpty()) {
+			eX= new Graph(e.getVertices().length);
+			Graph deltaENew= new Graph(e.getVertices().length);
+			for(int i=0; i<deltaE.getVertices().length;i++) {
+				for(int v=0; deltaE.getVertices()[i].getOutgoingEdge(v)!=null;v++) { 
+					for(int j=0; deltaE.getVertices()[i].getOutgoingEdge(v).getOutgoingEdge(j)!=null;j++) {
+						deltaENew.getVertices()[i].addOutgoingEdge(deltaENew.getVertices()[j]);
+						if(!eX.directConnection(eX.getVertices()[i], eX.getVertices()[j])) {
+							eX.getVertices()[i].addOutgoingEdge(eX.getVertices()[j]);
+						}
+					}
+				}
+			}
+			deltaE = deltaENew;
+			Graph eNew= new Graph(e);
+			for(int i=0;i<e.getVertices().length;i++) {
+				for(int v=0;e.getVertices()[i].getOutgoingEdge(v)!=null;v++) {
+					for(int j=0;deltaE.getVertices()[e.getVertices()[i].getOutgoingEdge(v).getID()].getOutgoingEdge(j)!=null;j++) {
+						if(!eNew.directConnection(eNew.getVertices()[i], eNew.getVertices()[j])) {
+							eNew.getVertices()[i].addOutgoingEdge(eNew.getVertices()[j]);							
+						}
+					}
+				}
+			}
+			e.uniteGraphs(eNew, deltaE);
+		}
+		return e;
+	}
 }
