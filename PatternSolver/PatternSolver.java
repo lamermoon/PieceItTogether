@@ -97,7 +97,7 @@ public class PatternSolver {
 								//nicht c impliziert a
 								adjList[nc].addOutgoingEdge(adjList[a]);
 								//a impliziert nicht c
-								adjList[a].addOutgoingEdge(adjList[a]);
+								adjList[a].addOutgoingEdge(adjList[nc]);
 								//c impliziert nicht a
 								adjList[c].addOutgoingEdge(adjList[na]);
 							} //Zweiter Fall - Left und Right nicht weiss 
@@ -279,7 +279,7 @@ public class PatternSolver {
 								//(nicht d impliziert b)
 								adjList[nd].addOutgoingEdge(adjList[b]);
 								//(b impliziert nicht d)
-								adjList[nb].addOutgoingEdge(adjList[d]);
+								adjList[b].addOutgoingEdge(adjList[nd]);
 								//(d impliziert nicht b)
 								adjList[d].addOutgoingEdge(adjList[nb]);
 								if(left == 'W'){
