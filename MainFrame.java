@@ -174,27 +174,27 @@ public class MainFrame extends JFrame implements ActionListener{
 	}
 	
 	private void generateInstance(int n, int m, boolean isInstance){
-		this.inputArea.setText("1\n"+n+" "+m+"\n");
-		if(n%2 == 0){
-			for(int i = 0; i < n; i++){
-				if(i%2==0){
-					for(int j = 0; j < (m/3); j++){
-						this.inputArea.append("BWW");
+		this.inputArea.setText("1\n"+n+" "+n+"\n");		// <<<<<<<<<< hier das zweite n zu m aendern, um spaeter korrekte Funkton zu haben!!!
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < n; j++){
+				if(i%2 == 0){
+					if(j%2 == 0){
+						this.inputArea.append("W");
+					}else{
+						this.inputArea.append("B");
 					}
-					
-					this.inputArea.append("\n");
 				}else{
-					for(int j = 0; j < (m/3); j++){
-						this.inputArea.append("WWB");
+					if(j%2 == 0){
+						this.inputArea.append("B");
+					}else{
+						this.inputArea.append("W");
 					}
-					this.inputArea.append("\n");
 				}
+				
 			}
-		}else if(n%2 == 1 && n >= 3){
-			
-		}else{
-			
+			this.inputArea.append("\n");
 		}
+		this.errorArea.setText("ALERT: At the moment only pattern of size n x n can be generated, ignoring the type of instance!");
 	}
 	
 	public static void main(String[] args) throws Exception{
