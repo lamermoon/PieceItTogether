@@ -2,6 +2,7 @@ package PieceItTogether.PatternSolver;
 
 import java.util.ArrayList;
 
+import PieceItTogether.SATSolver.Graph;
 import PieceItTogether.SATSolver.SATSolver;
 import PieceItTogether.SATSolver.Vertex;
 
@@ -16,7 +17,9 @@ public class PatternSolver {
 				output[i] = "**ignored**\n";
 			} else {
 				Vertex[] adjList = reduceTo2Sat(cases.get(i));
-				boolean answer = sat.solve(adjList);
+				Graph graph = new Graph(adjList.length);
+				graph.setVertices(adjList);
+				boolean answer = sat.solve(graph);
 				if(answer){
 					output[i] = "Yes\n";
 				} else {

@@ -3,14 +3,14 @@ package PieceItTogether.SATSolver;
 public class SATSolver {
 	
 	//Im bool-array sind a und nicht a immer nebeneinander angeordnet
-	public boolean solve(Vertex[] adjList){
-		adjList = transitiveClosure(adjList);
-		for(int i = 0; i < adjList.length; i = i+2) {									//gehe durch alle "nichtnegierten Listen"
-			for(int j = 0; j < adjList[i].getOutgoingEdges().size(); j++) {
+	public boolean solve(Graph graph){
+		graph = transitiveClosureNew(graph);
+		for(int i = 0; i < graph.getVertices().length; i = i+2) {									//gehe durch alle "nichtnegierten Listen"
+			for(int j = 0; j < graph.getVertices()[i].getOutgoingEdges().size(); j++) {
 				
-				if(adjList[i].getOutgoingEdges().get(j).equals(adjList[i+1])) {			//schaue, ob Implikation zu negierter Liste
-					for(int k = 0; k < adjList[i+1].getOutgoingEdges().size(); k++) {	//falls ja , gehe durch negierte Liste
-						if(adjList[i+1].getOutgoingEdges().get(k).equals(adjList[i])) {
+				if(graph.getVertices()[i].getOutgoingEdges().get(j).equals(graph.getVertices()[i+1])) {			//schaue, ob Implikation zu negierter Liste
+					for(int k = 0; k < graph.getVertices()[i+1].getOutgoingEdges().size(); k++) {	//falls ja , gehe durch negierte Liste
+						if(graph.getVertices()[i+1].getOutgoingEdges().get(k).equals(graph.getVertices()[i])) {
 							return false;												//falls dort Implikation zu nichtnegierter dann Cycle also false
 						}
 					}																	//falls in erster while-Schleife bereits negierte Liste gefunden wurde,
