@@ -51,9 +51,9 @@ public class SATSolver {
 			for(int i=0; i<deltaE.getVertices().length;i++) {
 				for(int v=0; deltaE.getVertices()[i].getOutgoingEdge(v)!=null;v++) { 
 					for(int j=0; deltaE.getVertices()[i].getOutgoingEdge(v).getOutgoingEdge(j)!=null;j++) {
-						deltaENew.getVertices()[i].addOutgoingEdge(deltaENew.getVertices()[j]);
-						if(!eX.directConnection(eX.getVertices()[i], eX.getVertices()[j])) {
-							eX.getVertices()[i].addOutgoingEdge(eX.getVertices()[j]);
+						deltaENew.addOutEdge(deltaENew.getVertices()[i], deltaENew.getVertices()[deltaE.getVertices()[i].getOutgoingEdge(v).getOutgoingEdge(j).getID()]);
+						if(!e.directConnection(e.getVertices()[i], e.getVertices()[j])) {
+							eX.addOutEdge(eX.getVertices()[i], eX.getVertices()[j]);
 						}
 					}
 				}
@@ -64,7 +64,7 @@ public class SATSolver {
 				for(int v=0;e.getVertices()[i].getOutgoingEdge(v)!=null;v++) {
 					for(int j=0;deltaE.getVertices()[e.getVertices()[i].getOutgoingEdge(v).getID()].getOutgoingEdge(j)!=null;j++) {
 						if(!eNew.directConnection(eNew.getVertices()[i], eNew.getVertices()[j])) {
-							eNew.getVertices()[i].addOutgoingEdge(eNew.getVertices()[j]);							
+							eNew.addOutEdge(eNew.getVertices()[i], eNew.getVertices()[j]);							
 						}
 					}
 				}

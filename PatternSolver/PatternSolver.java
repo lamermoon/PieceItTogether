@@ -53,7 +53,7 @@ public class PatternSolver {
 		
 		Vertex[] adjList;
 /* Wenn doppelt so viele weisse wie schwarze Felder da sind, ist eine Loesung moeglich */
-		if(2*black == white){
+	//	if(2*black == white){
 			adjList = new Vertex[2*(p.getN()*(p.getM()-1)+(p.getN()-1)*p.getM())]; //2*(p.getN()*(p.getM()-1)+(p.getN()-1)*p.getM()) ergibt die Anzahl der Kanten im Pattern
 			/* adjList initialisieren */
 			for(int i = 0; i < adjList.length; i++){
@@ -453,9 +453,9 @@ public class PatternSolver {
 	 * ************************************************************************************************************************************************* */
 
 /* Sonst nicht */	
-		} else {
-			return falseSatInstance();
-		}
+	//	} else {
+		//	return falseSatInstance();
+	//	}
 		return adjList;
 	}
 	

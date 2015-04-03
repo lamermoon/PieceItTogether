@@ -8,6 +8,9 @@ public class Graph {
 	//neuer leerer Graph
 	public Graph(int n){
 		v = new Vertex[n];
+		for(int i = 0; i < v.length; i++){
+			v[i] = new Vertex(i);
+		}
 		empty = true;
 	}
 	//Kopie
@@ -44,6 +47,7 @@ public class Graph {
 	//Achtung: Nur zum Testen!
 	public void setVertices(Vertex[] v) {
 		this.v=v;
+		notEmpty();
 	}
 	
 	//Ueberpruefe ob direkte Verbindung zwischen zwei Knoten besteht
