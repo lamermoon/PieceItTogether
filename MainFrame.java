@@ -14,13 +14,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 import PieceItTogether.PatternSolver.PatternSolver;
 import PieceItTogether.PatternSolver.Pattern;
@@ -34,7 +32,6 @@ public class MainFrame extends JFrame implements ActionListener{
 	private JTextField n, m;
 	private JRadioButton yes, no;
 	private ButtonGroup instance;
-	private JProgressBar pbar;
 	private static final long serialVersionUID = 1L;
 	
 	public MainFrame(String title) throws Exception{
@@ -43,15 +40,10 @@ public class MainFrame extends JFrame implements ActionListener{
 		this.solve = new JButton("Solve");
 		this.solve.setSize(25, 50);
 		this.solve.addActionListener(this);
-		
-		this.pbar = new JProgressBar();
-		this.pbar.setOrientation(SwingConstants.HORIZONTAL);
-		this.pbar.setVisible(false);
 				
 		this.inputArea = new JTextArea();
 		this.inputArea.setFont(new Font(Font.MONOSPACED, 5, 16));
 		this.inputArea.setSize(750, 700);
-		this.inputArea.setMinimumSize(new Dimension(100, 100));
 		this.inputArea.setVisible(true);
 		
 		this.isp = new JScrollPane(inputArea);
@@ -96,9 +88,8 @@ public class MainFrame extends JFrame implements ActionListener{
 		this.solveCenter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, ioPanel, subCenter);
 		this.solveCenter.setDividerLocation(inputArea.getHeight()-100);
 		
-		this.solveBottom = new JPanel(new CardLayout());
-		this.solveBottom.add("button", solve);
-		this.solveBottom.add("pbar", pbar);
+		this.solveBottom = new JPanel();
+		this.solveBottom.add(solve);
 		
 		this.solvePanel = new JPanel(new BorderLayout());
 		this.solvePanel.add(solveTop, BorderLayout.NORTH);
@@ -150,7 +141,6 @@ public class MainFrame extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == this.solve){
-			((CardLayout)this.solveBottom.getLayout()).first(this.solveBottom);
 			PatternSolver ps = new PatternSolver();
 			this.errorArea.setText("");
 			try{

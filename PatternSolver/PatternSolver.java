@@ -6,7 +6,7 @@ import PieceItTogether.SATSolver.SATSolver;
 import PieceItTogether.SATSolver.Vertex;
 
 public class PatternSolver {
-	private ArrayList<Pattern> cases = new ArrayList<Pattern>(); 
+	private ArrayList<Pattern> cases = new ArrayList<Pattern>();
 	
 	public String[] solve(){
 		String[] output = new String[cases.size()];
@@ -467,6 +467,10 @@ public class PatternSolver {
 	
 	public void addPattern(Pattern p){
 		this.cases.add(p);
+	}
+	
+	public ArrayList<Pattern> getCases(){
+		return this.cases;
 	}
 	
 	public String toString(){
