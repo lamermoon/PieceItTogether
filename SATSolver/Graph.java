@@ -33,13 +33,13 @@ public class Graph {
 		empty=false;
 	}
 	public void addOutEdge(Vertex a, Vertex b) {
-		if(!isEmpty()) {
+		if(isEmpty()) {
 			notEmpty();
 		}
 		a.addOutgoingEdge(b);
 	}
 	public void addInEdge(Vertex a, Vertex b) {
-		if(!isEmpty()) {
+		if(isEmpty()) {
 			notEmpty();
 		}
 		a.addIncomingEdge(b);
@@ -64,7 +64,7 @@ public class Graph {
 		Vertex[] x= a.getVertices();
 		Vertex[] y= b.getVertices();
 		for(int i=0;i<x.length;i++) {
-			for(int j=0;y[i].getOutgoingEdge(j)!=null;j++) {
+			for(int j=0;j<y[i].getOutgoingEdges().size();j++) {
 				if(!a.directConnection(x[y[i].getID()], x[y[i].getOutgoingEdge(j).getID()])) {
 					a.addOutEdge(x[y[i].getID()], x[y[i].getOutgoingEdge(j).getID()]);
 				}
