@@ -1,6 +1,7 @@
 package PieceItTogether;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -13,11 +14,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import PieceItTogether.PatternSolver.PatternSolver;
 import PieceItTogether.PatternSolver.Pattern;
@@ -31,6 +34,7 @@ public class MainFrame extends JFrame implements ActionListener{
 	private JTextField n, m;
 	private JRadioButton yes, no;
 	private ButtonGroup instance;
+	private JProgressBar pbar;
 	private static final long serialVersionUID = 1L;
 	
 	public MainFrame(String title) throws Exception{
@@ -39,6 +43,10 @@ public class MainFrame extends JFrame implements ActionListener{
 		this.solve = new JButton("Solve");
 		this.solve.setSize(25, 50);
 		this.solve.addActionListener(this);
+		
+		this.pbar = new JProgressBar();
+		this.pbar.setOrientation(SwingConstants.HORIZONTAL);
+		this.pbar.setVisible(false);
 				
 		this.inputArea = new JTextArea();
 		this.inputArea.setFont(new Font(Font.MONOSPACED, 5, 16));
@@ -48,8 +56,7 @@ public class MainFrame extends JFrame implements ActionListener{
 		
 		this.isp = new JScrollPane(inputArea);
 		
-		this.inputPanel = new JPanel();
-		this.inputPanel.setLayout(new BorderLayout());
+		this.inputPanel = new JPanel(new BorderLayout());
 		this.inputPanel.add(new JLabel("INPUT:"), BorderLayout.NORTH);
 		this.inputPanel.add(isp, BorderLayout.CENTER);
 		
@@ -62,8 +69,7 @@ public class MainFrame extends JFrame implements ActionListener{
 		
 		this.osp = new JScrollPane(outputArea);
 		
-		this.outputPanel = new JPanel();
-		this.outputPanel.setLayout(new BorderLayout());
+		this.outputPanel = new JPanel(new BorderLayout());
 		this.outputPanel.add(new JLabel("OUTPUT:"), BorderLayout.NORTH);
 		this.outputPanel.add(osp, BorderLayout.CENTER);
 		
@@ -76,27 +82,25 @@ public class MainFrame extends JFrame implements ActionListener{
 		
 		this.esp = new JScrollPane(errorArea);
 		
-		this.solveTop = new JPanel();
-		this.solveTop.setLayout(new BorderLayout());
+		this.solveTop = new JPanel(new BorderLayout());
 		this.solveTop.add(new JLabel(" Piece It Together"), BorderLayout.NORTH);
 		
 		
 		this.ioPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, inputPanel, outputPanel);
 		this.ioPanel.setDividerLocation(inputArea.getWidth());
 		
-		this.subCenter = new JPanel();
-		this.subCenter.setLayout(new BorderLayout());
+		this.subCenter = new JPanel(new BorderLayout());
 		this.subCenter.add(new JLabel("ERROR Output:"), BorderLayout.NORTH);
 		this.subCenter.add(esp, BorderLayout.CENTER);
 		
 		this.solveCenter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, ioPanel, subCenter);
 		this.solveCenter.setDividerLocation(inputArea.getHeight()-100);
 		
-		this.solveBottom = new JPanel();
-		this.solveBottom.add(solve);
+		this.solveBottom = new JPanel(new CardLayout());
+		this.solveBottom.add("button", solve);
+		this.solveBottom.add("pbar", pbar);
 		
-		this.solvePanel = new JPanel();
-		this.solvePanel.setLayout(new BorderLayout());
+		this.solvePanel = new JPanel(new BorderLayout());
 		this.solvePanel.add(solveTop, BorderLayout.NORTH);
 		this.solvePanel.add(solveCenter, BorderLayout.CENTER);
 		this.solvePanel.add(solveBottom, BorderLayout.SOUTH);
@@ -146,6 +150,7 @@ public class MainFrame extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == this.solve){
+			((CardLayout)this.solveBottom.getLayout()).first(this.solveBottom);
 			PatternSolver ps = new PatternSolver();
 			this.errorArea.setText("");
 			try{
