@@ -138,7 +138,7 @@ public class MainFrame extends JFrame implements ActionListener{
 		this.setSize(1000,900);
 		this.getContentPane().setLayout(new BorderLayout());
 		this.getContentPane().add(solvePanel, BorderLayout.CENTER);
-		this.getContentPane().add(generatePanel, BorderLayout.SOUTH);
+		//this.getContentPane().add(generatePanel, BorderLayout.SOUTH);	//Sobald der Generator implementiert ist, diese Zeile einkommentieren
 		
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
